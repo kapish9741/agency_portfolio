@@ -7,4 +7,6 @@ export const useStore = create((set) => ({
     setIntroOut: (introOut) => set({ introOut }),
     isLoading: true,
     setIsLoading: (isLoading) => set({ isLoading }),
+    isMenuOpen: false,
+    setIsMenuOpen: (isMenuOpen) => set({ isMenuOpen }),
 }));

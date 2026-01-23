@@ -1,14 +1,17 @@
+"use client";
+
 import React from 'react'
+import MenuButton from './_Navbar/MenuButton';
 
 const Navbar = () => {
     return (
-        <nav>
-            <div className='flex items-center justify-between font-urbanist px-34 mt-20'>
+        <nav className="w-full relative z-110">
+            <div className='flex items-center justify-between font-urbanist px-20 pt-13'>
                 <div>
                     <p className='text-blue-700 text-5xl font-semibold'>Agency.</p>
                 </div>
                 <div>
-                    <p className='text-blue-700 text-2xl font-semibold'>Menu</p>
+                    <MenuButton />
                 </div>
             </div>
         </nav>

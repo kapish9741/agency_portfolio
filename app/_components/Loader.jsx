@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import SplitType from 'split-type';
-import styles from './Loader.module.css';
+import styles from './_Loader/Loader.module.css';
 import { useStore } from '../_store/useStore';
 
 const Loader = () => {
