@@ -97,7 +97,7 @@ const MenuButton = () => {
                         style={{
                             width: "2.5rem",
                             height: "2.5rem",
-                            backgroundColor: "#2563eb",
+                            backgroundColor: "#1e40af",
                             borderRadius: "50%",
                             display: "block"
                         }}

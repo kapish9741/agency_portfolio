@@ -2,7 +2,7 @@ import React from 'react'
 
 const AvailabilityBadge = () => {
     return (
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 z-100 px-4 pointer-events-auto">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 z-50 px-4 pointer-events-auto">
             <div className="relative flex items-center justify-center w-[342px] h-[36px]">
                 <svg
                     className="absolute inset-0 w-full h-full drop-shadow-sm"

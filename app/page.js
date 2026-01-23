@@ -31,7 +31,15 @@ export default function Home() {
     return () => {
       lenis.destroy();
     };
-  }, [isLoading]);
+  }, [isLoading, isMenuOpen]);
+
+  React.useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMenuOpen]);
 
   return (
     <>
