@@ -50,7 +50,7 @@ const MenuPage = () => {
         >
             <div className='w-full h-fit'>
                 <FlowingMenu items={demoItems}
-                    speed={1}
+                    speed={5}
                     textColor="#ffffff"
                     bgColor="#000000"
                     marqueeBgColor="#1e40af"

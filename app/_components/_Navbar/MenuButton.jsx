@@ -91,13 +91,13 @@ const MenuButton = () => {
                     <motion.span
                         className="TheNavigationBurger-circle"
                         animate={{
-                            scale: isMenuOpen ? 1.5 : (isHovered ? 0.9 : 0.2),
+                            scale: isMenuOpen ? 1.5 : (isHovered ? 1.1 : 0.2),
                         }}
                         transition={transition}
                         style={{
                             width: "2.5rem",
                             height: "2.5rem",
-                            backgroundColor: "#1e40af",
+                            backgroundColor: "#1447E6",
                             borderRadius: "50%",
                             display: "block"
                         }}

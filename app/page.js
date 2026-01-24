@@ -53,6 +53,7 @@ export default function Home() {
             <AvailabilityBadge />
             <Navbar />
             <Hero />
+
           </main>
         </div>
       </div>
