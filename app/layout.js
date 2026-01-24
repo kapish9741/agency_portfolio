@@ -1,14 +1,15 @@
-import { Urbanist, Libre_Baskerville } from "next/font/google";
+import { Urbanist, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
-const getUrbansit = Urbanist({
+const getUrbanist = Urbanist({
   variable: "--font-urbanist",
   subsets: ["latin"],
 });
 
-const getLibreBaskerville = Libre_Baskerville({
-  variable: "--font-libre-baskerville",
+const getDancingScript = Dancing_Script({
+  variable: "--font-dancing-script",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${getUrbansit.variable} ${getLibreBaskerville.variable} antialiased h-full`}>
+        className={`${getUrbanist.variable} ${getDancingScript.variable} antialiased h-full`}>
         {children}
       </body>
     </html>
