@@ -125,7 +125,7 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
       }}
     >
       <a
-        className="flex items-center justify-center h-full relative cursor-pointer font-urbanist uppercase no-underline font-bold text-[12vh] leading-none"
+        className="flex items-center justify-center h-full relative cursor-pointer font-urbanist uppercase no-underline font-semibold text-[12vh] leading-none"
         href={link}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -141,7 +141,7 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
         <div className="h-full w-fit flex" ref={marqueeInnerRef}>
           {[...Array(repetitions)].map((_, idx) => (
             <div className="marquee-part flex items-center shrink-0" key={idx} style={{ color: marqueeTextColor }}>
-              <span className="whitespace-nowrap uppercase font-bold font-urbanist text-[12vh] leading-none px-[1vw]">{text}</span>
+              <span className="whitespace-nowrap font-medium font-libre-baskerville italic text-[12vh] leading-none px-[1vw] mt-3">{text}</span>
               <div
                 className="w-[200px] h-[7vh] my-auto mx-[2vw] rounded-[50px] bg-cover bg-center"
                 style={{ backgroundImage: `url(${image})` }}
