@@ -19,9 +19,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en">
       <body
-        className={`${getUrbanist.variable} ${getDancingScript.variable} antialiased h-full`}>
+        className={`${getUrbanist.variable} ${getDancingScript.variable} antialiased`}>
         {children}
       </body>
     </html>

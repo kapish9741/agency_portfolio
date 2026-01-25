@@ -9,6 +9,7 @@ import Loader from "./_components/Loader";
 import { useStore } from "./_store/useStore";
 import { AnimatePresence } from "framer-motion";
 import About from "./_components/About";
+import RecentWorks from "./_components/RecentWorks";
 
 export default function Home() {
   const { isLoading, isMenuOpen } = useStore();
@@ -49,15 +50,16 @@ export default function Home() {
         <AnimatePresence mode="wait">
           {isMenuOpen && <MenuPage />}
         </AnimatePresence>
-        <div id="main-content" className="relative w-full min-h-screen origin-center top-0 flex flex-col">
-          <main className="bg-[#EDF1EC] overflow-hidden min-h-screen flex flex-col rounded-b-4xl">
+        <div id="main-content" className="relative w-full min-h-screen origin-center top-0 flex flex-col bg-[#DCDCDC]">
+          <main className="bg-[#F4F4F4] overflow-hidden min-h-screen flex flex-col rounded-b-4xl">
             <AvailabilityBadge />
             <Navbar />
             <Hero />
           </main>
 
-          <main className="overflow-hidden min-h-screen flex flex-col">
-            <About/>
+          <main className="min-h-screen flex flex-col">
+            <About />
+            <RecentWorks />
           </main>
         </div>
       </div>
