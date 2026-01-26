@@ -5,28 +5,30 @@ import React from 'react'
 const cards = [
     {
         id: 1,
-        image: "/Hero/2.jpg",
+        image: "/projects/image.png",
+        link: "https://www.instagram.com/",
         alt: "Description 1",
     },
     {
         id: 2,
-        image: "/Hero/2.jpg",
+        image: "/projects/image.png",
+        link: "https://www.google.com/",
         alt: "Description 2",
     },
     {
         id: 3,
-        image: "/Hero/2.jpg",
+        image: "/projects/image.png",
+        link: "https://www.instagram.com/",
         alt: "Description 3",
     },
 ];
 
 const RecentWorks = () => {
     return (
-        <section className='flex items-center justify-center mt-30 mb-96 flex-col '>
+        <section className='flex items-center justify-center mt-60 mb-96 flex-col '>
 
             <div
-                className='flex flex-col items-center justify-center relative z-0 gap-4'
-            >
+                className='flex flex-col items-center justify-center relative z-0 gap-4'>
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -49,6 +51,7 @@ const RecentWorks = () => {
                     </span>
                 </motion.h1>
             </div>
+
 
 
             <div className='h-screen w-full relative z-10 -mt-38'>

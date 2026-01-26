@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 const ShowReel = () => {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -9,6 +11,36 @@ const ShowReel = () => {
   const [isPlaying, setIsPlaying] = useState(true) // Default to true since we autoplay
   const videoRef = useRef(null) // For the thumbnail video (optional usage)
   const fullscreenVideoRef = useRef(null) // For the fullscreen video
+
+  // Refs for custom cursor
+  const cursorRef = useRef(null)
+  const cursorTextRef = useRef(null)
+  const containerRef = useRef(null) // Ref for the main container to track mouse movement
+
+  // GSAP for custom cursor
+  useGSAP(() => {
+    const cursor = cursorRef.current
+    const cursorText = cursorTextRef.current
+
+    // Initial state: hidden
+    gsap.set(cursor, { xPercent: -50, yPercent: -50, scale: 0, opacity: 0 })
+
+    const moveCursor = (e) => {
+      gsap.to(cursor, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 1.2,
+        ease: "power3.out",
+        overwrite: "auto"
+      })
+    }
+
+    window.addEventListener('mousemove', moveCursor)
+
+    return () => {
+      window.removeEventListener('mousemove', moveCursor)
+    }
+  }, { scope: containerRef })
 
   // Handle escape key to close
   useEffect(() => {
@@ -32,6 +64,7 @@ const ShowReel = () => {
   const handleOpen = () => {
     setIsExpanded(true)
     setIsPlaying(true) // Reset to playing when opened
+    handleMouseLeaveThumbnail(); // Ensure cursor hides
   }
 
   const handleClose = () => {
@@ -50,6 +83,33 @@ const ShowReel = () => {
       setIsPlaying(!isPlaying);
     }
   };
+
+  // Combined mouse enter/leave handlers for thumbnail
+  const handleMouseEnterThumbnail = () => {
+    setIsHovered(true)
+    gsap.to(cursorRef.current, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.3,
+      ease: "power2.out"
+    })
+    gsap.to(cursorTextRef.current, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out"
+    })
+  }
+
+  const handleMouseLeaveThumbnail = () => {
+    setIsHovered(false)
+    gsap.to(cursorRef.current, {
+      scale: 0,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in"
+    })
+  }
 
   const modalVariants = {
     initial: {
@@ -82,7 +142,7 @@ const ShowReel = () => {
   }
 
   return (
-    <section className=' w-full flex justify-center'>
+    <section ref={containerRef} className=' w-full flex justify-center'>
       <div className="relative w-full max-w-[1400px] h-[400px] flex items-center justify-center">
 
         {/* Background Text */}
@@ -120,10 +180,10 @@ const ShowReel = () => {
 
         {/* Thumbnail Container */}
         <div
-          className="relative z-10 w-48 h-32 md:w-80 md:h-56 cursor-pointer group"
+          className="relative z-10 w-48 h-32 md:w-80 md:h-56 cursor-none group"
           onClick={handleOpen}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={handleMouseEnterThumbnail}
+          onMouseLeave={handleMouseLeaveThumbnail}
         >
 
           {/* Thumbnail Video Card */}
@@ -136,7 +196,7 @@ const ShowReel = () => {
               playsInline
               loop
             />
-            <div className="absolute inset-0 flex items-center justify-between bg-black/10 group-hover:bg-transparent transition-colors px-6">
+            <div className="absolute inset-0 flex items-center justify-between bg-black/10 group-hover:bg-transparent transition-colors px-6 pointer-events-none">
               <p className='font-urbanist text-lg font-light text-white'>Agency.</p>
               <p className='font-urbanist text-lg font-light text-white'>00:21</p>
             </div>
@@ -215,6 +275,19 @@ const ShowReel = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Custom Cursor */}
+      <div
+        ref={cursorRef}
+        className="fixed top-0 left-0 w-24 h-24 rounded-full pointer-events-none z-[9999] flex items-center justify-center bg-white"
+      >
+        <span
+          ref={cursorTextRef}
+          className="text-black text-xs font-medium tracking-wide uppercase font-urbanist"
+        >
+          View
+        </span>
+      </div>
     </section>
   )
 }

@@ -105,7 +105,7 @@ const Hero = () => {
 
         <div className="w-full h-full overflow-hidden rounded-3xl mt-10 mb-5" ref={containerRef}>
           <motion.div style={{ scale }} className="w-full h-full">
-            <Image src="/Hero/main.jpg" alt='hero' width={1400} height={800} priority className="w-full h-full object-cover" />
+            <Image src="/Hero/1.jpeg" alt='hero' width={1400} height={800} priority className="w-full h-full object-cover" />
           </motion.div>
         </div>
         <LogoCloud />
