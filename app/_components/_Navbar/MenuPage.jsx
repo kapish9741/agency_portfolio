@@ -48,7 +48,7 @@ const MenuPage = () => {
             animate="animate"
             exit="exit"
         >
-            <div className='w-full h-fit'>
+            <div className='w-full h-fit mt-15'>
                 <FlowingMenu items={demoItems}
                     speed={5}
                     textColor="#ffffff"

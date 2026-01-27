@@ -10,6 +10,7 @@ import { useStore } from "./_store/useStore";
 import { AnimatePresence } from "framer-motion";
 import About from "./_components/About";
 import RecentWorks from "./_components/RecentWorks";
+import Services from "./_components/Services";
 
 export default function Home() {
   const { isLoading, isMenuOpen } = useStore();
@@ -54,8 +55,7 @@ export default function Home() {
 
         <div
           id="main-content"
-          className="relative w-full min-h-screen flex flex-col bg-[#ededed]"
-        >
+          className="relative w-full min-h-screen flex flex-col bg-[#ededed]">
           <main className="bg-[#F4F4F4] overflow-x-hidden min-h-screen flex flex-col rounded-b-4xl">
             <AvailabilityBadge />
             <Navbar />
@@ -66,6 +66,7 @@ export default function Home() {
             <About />
             <RecentWorks />
             <div className="h-[200vh]" />
+            <Services />
           </main>
         </div>
       </div>

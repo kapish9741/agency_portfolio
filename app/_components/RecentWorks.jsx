@@ -25,7 +25,7 @@ const cards = [
 
 const RecentWorks = () => {
     return (
-        <section className='flex items-center justify-center mt-60 mb-96 flex-col '>
+        <section className='flex items-center justify-center mt-40 flex-col '>
 
             <div
                 className='flex flex-col items-center justify-center relative z-0 gap-4'>
@@ -54,7 +54,7 @@ const RecentWorks = () => {
 
 
 
-            <div className='h-screen w-full relative z-10 -mt-38'>
+            <div className='h-screen w-full relative z-10 -mt-18'>
                 <StickyCard002 cards={cards} />
             </div>
 
