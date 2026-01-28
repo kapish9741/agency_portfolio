@@ -106,7 +106,7 @@ const ServiceItem = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="text-[13rem] font-semibold tracking-tight leading-none">
+            className="text-[13rem] font-semibold tracking-tight leading-none font-urbanist">
             <span className="bg-linear-to-b from-black/20 to-white bg-clip-text text-transparent cursor-events-none">
               Our Services
             </span>

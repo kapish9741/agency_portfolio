@@ -11,6 +11,8 @@ import { AnimatePresence } from "framer-motion";
 import About from "./_components/About";
 import RecentWorks from "./_components/RecentWorks";
 import Services from "./_components/Services";
+import Pricing from "./_components/Pricing";
+import FAQs from "./_components/FAQs";
 
 export default function Home() {
   const { isLoading, isMenuOpen } = useStore();
@@ -67,6 +69,8 @@ export default function Home() {
             <RecentWorks />
             <div className="h-[200vh]" />
             <Services />
+            <Pricing />
+            <FAQs />
           </main>
         </div>
       </div>
