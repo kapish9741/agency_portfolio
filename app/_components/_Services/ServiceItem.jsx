@@ -107,14 +107,14 @@ const ServiceItem = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-[13rem] font-semibold tracking-tight leading-none font-urbanist">
-            <span className="bg-linear-to-b from-black/20 to-white bg-clip-text text-transparent cursor-events-none">
+            <span className="bg-[linear-gradient(180deg,#ffffff,#0B0B0B)] bg-clip-text text-transparent cursor-events-none">
               Our Services
             </span>
           </motion.h1>
         </div>
 
 
-        <div className='flex w-full items-center justify-between z-20 border-t border-gray-300 -mt-12 bg-[#ededed] pt-10'>
+        <div className='flex w-full  items-center justify-between z-20 border-t border-gray-300 -mt-12 bg-[#0B0B0B] pt-10 px-20'>
           {services.map((service, index) => (
             <div
               key={index}

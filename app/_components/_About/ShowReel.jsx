@@ -154,7 +154,7 @@ const ShowReel = () => {
             viewport={{ once: true }}
           >
             <motion.span
-              className="font-urbanist text-5xl md:text-7xl font-light text-neutral-400 tracking-tighter inline-block"
+              className="font-urbanist text-5xl md:text-7xl font-light text-[#fbfbfb87] tracking-tight inline-block"
               animate={{ x: isHovered ? -25 : 0 }}
               transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
             >
@@ -169,7 +169,7 @@ const ShowReel = () => {
             viewport={{ once: true }}
           >
             <motion.span
-              className="font-urbanist text-5xl md:text-7xl font-light text-neutral-400 tracking-tighter inline-block"
+              className="font-urbanist text-5xl md:text-7xl font-light text-[#fbfbfb87] tracking-tight inline-block"
               animate={{ x: isHovered ? 25 : 0 }}
               transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
             >

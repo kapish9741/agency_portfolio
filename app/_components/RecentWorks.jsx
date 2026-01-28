@@ -34,7 +34,7 @@ const RecentWorks = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className='font-light font-urbanist text-blue-700 text-3xl'
+                    className='font-light font-urbanist text-[#3a86ff] text-3xl'
                 >
                     ( <span className='font-dancing-script text-3xl'>curated projects</span> )
                 </motion.p>
@@ -46,7 +46,7 @@ const RecentWorks = () => {
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                     className="text-[13rem] font-semibold tracking-tight leading-none font-urbanist"
                 >
-                    <span className="bg-linear-to-b from-black/20 to-white bg-clip-text text-transparent">
+                    <span className="bg-[linear-gradient(180deg,#ffffff,#0B0B0B)] bg-clip-text text-transparent">
                         Recent Works
                     </span>
                 </motion.h1>

@@ -46,6 +46,15 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --spacing-md: var(----spacing-md);
+  --spacing-sm: var(----spacing-sm);
+  --font-size-mono: var(----font-size-mono);
+  --color-color-accent: var(----color-accent);
+  --color-color-text-light: var(----color-text-light);
+  --color-color-text-muted: var(----color-text-muted);
+  --color-color-text: var(----color-text);
+  --color-color-bg: var(----color-bg);
+  --font-display: var(----font-display);
 }
 
 :root {
@@ -81,6 +90,17 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --font-mono: "PPSupplyMono", monospace;
+  --font-sans: "PP Neue Montreal", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --color-bg: #0a0a0a;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-text-light: rgba(255, 255, 255, 0.5);
+  --color-accent: #d4af37;
+  --font-size-mono: clamp(10px, 1.2vw, 12px);
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
 }
 
 .dark {

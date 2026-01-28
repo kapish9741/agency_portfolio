@@ -57,7 +57,7 @@ export default function Home() {
 
         <div
           id="main-content"
-          className="relative w-full min-h-screen flex flex-col bg-[#ededed]">
+          className="relative w-full min-h-screen flex flex-col bg-[#0B0B0B]">
           <main className="bg-[#F4F4F4] overflow-x-hidden min-h-screen flex flex-col rounded-b-4xl">
             <AvailabilityBadge />
             <Navbar />
@@ -69,8 +69,8 @@ export default function Home() {
             <RecentWorks />
             <div className="h-[200vh]" />
             <Services />
-            <Pricing />
-            <FAQs />
+            {/* <Pricing /> */}
+            {/* <FAQs /> */}
           </main>
         </div>
       </div>

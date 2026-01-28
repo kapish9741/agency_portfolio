@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Check, X, Info } from 'lucide-react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const PricingTable = () => {
     const [plans] = useState([
@@ -8,7 +8,6 @@ const PricingTable = () => {
             name: 'Essential',
             description: 'Everything you need to get started, done right.',
             price: '₹361',
-            period: 'per month',
             highlighted: false,
             features: [
                 { name: 'Free .com domain', icon: 'gift' },
@@ -17,13 +16,12 @@ const PricingTable = () => {
                 { name: 'Fast and secure hosting', icon: 'zap' },
                 { name: 'Built-in SEO', icon: 'search' },
             ],
-            buttonText: 'Start with Basic',
+            buttonText: 'Start with Essential',
         },
         {
             name: 'Growth',
             description: 'Built to scale performance, design, and conversions.',
             price: '₹1,084',
-            period: 'per month',
             highlighted: true,
             features: [
                 { name: 'Everything from Basic, plus:', type: 'header' },
@@ -33,13 +31,12 @@ const PricingTable = () => {
                 { name: 'Site redirects', icon: 'arrow-up-right' },
                 { name: 'Multiple locales (add-on)', icon: 'globe' },
             ],
-            buttonText: 'Start with Pro',
+            buttonText: 'Start with Growth',
         },
         {
             name: 'Scale',
             description: 'Designed for brands operating at scale.',
             price: '₹3,612',
-            period: 'per month, plus usage',
             highlighted: false,
             features: [
                 { name: 'Everything from Pro, plus:', type: 'header' },
@@ -52,7 +49,6 @@ const PricingTable = () => {
                 { name: 'Custom proxy setup (add-on)', icon: 'cloud' },
             ],
             buttonText: 'Start with Scale',
-            annualOnly: true,
         },
     ]);
 
@@ -79,53 +75,37 @@ const PricingTable = () => {
         }
     };
 
-    // 3D Carousel Logic
-    // CARD_WIDTH must match the w-[380px] or similar we'll set on cards
-    // GAP is clear distance between cards in 3D space
     const CARD_WIDTH = 400;
     const DRAG_FACTOR = 0.5; // Sensitivity
-
-    // We assume 3 cards for this specific design
     const x = useMotionValue(0);
 
     const Card = ({ plan, index }) => {
-        // Calculate offset for each card based on its index
-        // Center card (index 1) is at 0
-        // Left card (index 0) is at -CARD_WIDTH
-        // Right card (index 2) is at +CARD_WIDTH
+        const myOffset = (index - 1) * CARD_WIDTH;
 
-        // We want the whole system to move. 
-        // x represents the "scroll position" of the carousel.
-        // When x = 0, index 1 is center.
-        // When x = CARD_WIDTH, index 0 is center.
-        // When x = -CARD_WIDTH, index 2 is center.
-
-        // Adjusted index logic for centering:
-        // We shift x so that 0 means "start"
-        // Let's stick to: Center (Growth) is the default focus.
-
-        const myOffset = (index - 1) * CARD_WIDTH; // 0 -> -400, 1 -> 0, 2 -> 400
-
-        // Transform the global x into a local position for this card
         const position = useTransform(x, (currentX) => {
             const rawPos = currentX + myOffset;
             const totalWidth = plans.length * CARD_WIDTH;
-            // Calculate wrapped position centered around 0
-            // The formula ensures the value stays within [-totalWidth/2, totalWidth/2]
             const wrappedPos = ((rawPos + totalWidth / 2) % totalWidth + totalWidth) % totalWidth - totalWidth / 2;
             return wrappedPos;
         });
 
-        // 3D Transforms based on position relative to center (0)
         const scale = useTransform(position, [-CARD_WIDTH, 0, CARD_WIDTH], [0.85, 1, 0.85]);
-        const rotateY = useTransform(position, [-CARD_WIDTH, 0, CARD_WIDTH], [30, 0, -30]); // Rotate inwards to face center
+        const rotateY = useTransform(position, [-CARD_WIDTH, 0, CARD_WIDTH], [30, 0, -30]);
         const zIndex = useTransform(position, [-CARD_WIDTH, 0, CARD_WIDTH], [1, 10, 1]);
         const opacity = useTransform(position, [-CARD_WIDTH * 1.5, -CARD_WIDTH, 0, CARD_WIDTH, CARD_WIDTH * 1.5], [0, 1, 1, 1, 0]);
-        // Also add X translation to separate them visualy
-        // We actually want the position value to drive the 'x' style directly?
-        // No, 'position' IS the 'x' value but we want them to overlap or gap nicely.
-        // Since we are absolute positioning them in center, 'x' style will move them.
 
+        // Dynamic Colors
+        const backgroundColor = useTransform(position, [-CARD_WIDTH / 2, 0, CARD_WIDTH / 2], ["rgba(255, 255, 255, 0.9)", "#1e40af", "rgba(255, 255, 255, 0.9)"]); // white/90 to blue-800
+        const borderColor = useTransform(position, [-CARD_WIDTH / 2, 0, CARD_WIDTH / 2], ["#e4e4e7", "#1e3a8a", "#e4e4e7"]); // zinc-200 to blue-900
+        const titleColor = useTransform(position, [-CARD_WIDTH / 2, 0, CARD_WIDTH / 2], ["#18181b", "#ffffff", "#18181b"]); // zinc-900 to white
+        const subtitleColor = useTransform(position, [-CARD_WIDTH / 2, 0, CARD_WIDTH / 2], ["#71717a", "#bfdbfe", "#71717a"]); // zinc-500 to blue-200
+        const dividerColor = useTransform(position, [-CARD_WIDTH / 2, 0, CARD_WIDTH / 2], ["#f4f4f5", "#1e3a8a", "#f4f4f5"]); // zinc-100 to blue-900
+
+        // Button
+        const buttonBg = useTransform(position, [-CARD_WIDTH / 2, 0, CARD_WIDTH / 2], ["#ffffff", "#0080ff", "#ffffff"]);
+        const buttonText = useTransform(position, [-CARD_WIDTH / 2, 0, CARD_WIDTH / 2], ["#18181b", "#ffffff", "#18181b"]);
+        const buttonBorder = useTransform(position, [-CARD_WIDTH / 2, 0, CARD_WIDTH / 2], ["#e4e4e7", "#0080ff", "#e4e4e7"]);
+ 
         return (
             <motion.div
                 style={{
@@ -134,77 +114,59 @@ const PricingTable = () => {
                     rotateY,
                     zIndex,
                     opacity,
-                    // Center the card absolutely
+                    backgroundColor,
+                    borderColor,
                     position: 'absolute',
                     left: '50%',
-                    marginLeft: '-200px', // Half of width
+                    marginLeft: '-200px',
                 }}
-                className={`flex flex-col rounded-3xl p-8 w-[400px] h-[650px] shadow-xl shrink-0 cursor-grab active:cursor-grabbing ${plan.highlighted
-                    ? 'bg-blue-800 border border-blue-900 shadow-2xl shadow-blue-900/40' // Enhanced Pro card shadow
-                    : 'bg-white/90 border border-zinc-200 backdrop-blur-sm'
-                    }`}
-            >
-                {/* Header */}
+                className="font-urbanist flex flex-col rounded-3xl p-8 w-[400px] h-[650px] shadow-xl shrink-0 cursor-grab active:cursor-grabbing border backdrop-blur-sm">
+
                 <div className="flex justify-between items-start mb-4">
                     <div>
-                        <h3 className={`text-3xl font-medium mb-2 ${plan.highlighted ? 'text-white' : 'text-zinc-900'}`}>{plan.name}</h3>
-                        <p className={`text-sm ${plan.highlighted ? 'text-blue-200' : 'text-zinc-500'}`}>
+                        <motion.h3 style={{ color: titleColor }} className="text-2xl font-medium mb-2">{plan.name}</motion.h3>
+                        <motion.p style={{ color: subtitleColor }} className="text-sm">
                             {plan.description}
-                        </p>
-                    </div>
-
-                    {/* Annual Label Only */}
-                    <div className="flex items-center gap-2">
-                        <span className={`text-[10px] font-semibold tracking-wider ${plan.highlighted ? 'text-zinc-500' : 'text-zinc-400'}`}>
-                            {plan.annualOnly ? 'ANNUAL ONLY' : 'ANNUAL'}
-                        </span>
+                        </motion.p>
                     </div>
                 </div>
 
-                {/* Separator */}
-                <div className={`h-px w-full my-6 ${plan.highlighted ? 'bg-blue-800' : 'bg-zinc-100'}`}></div>
 
                 {/* Price */}
                 <div className="mb-8">
                     <div className="flex items-baseline gap-2">
-                        <span className={`text-3xl font-bold tracking-tight ${plan.highlighted ? 'text-white' : 'text-zinc-900'}`}>{plan.price}</span>
-                        <span className={`text-sm ${plan.highlighted ? 'text-blue-200' : 'text-zinc-500'}`}>
-                            {plan.period}
-                        </span>
+                        <motion.span style={{ color: titleColor }} className="text-5xl font-bold tracking-tight">{plan.price}</motion.span>
                     </div>
                 </div>
 
                 {/* Features */}
-                <div className="flex-1 mb-8 overflow-y-auto custom-scrollbar"> {/* Added overflow handling just in case */}
+                <div className="flex-1 mb-8 overflow-y-auto custom-scrollbar">
                     <ul className="space-y-4">
                         {plan.features.map((feature, i) => (
-                            <li
+                            <motion.li
                                 key={i}
-                                className={`flex items-start text-sm ${feature.type === 'header'
-                                    ? `pt-2 pb-1 ${plan.highlighted ? 'text-blue-200' : 'text-zinc-900 font-medium'}`
-                                    : plan.highlighted ? 'text-zinc-300 font-light' : 'text-zinc-600'
-                                    }`}
-                            >
+                                style={{
+                                    color: feature.type === 'header' ? titleColor : ((feature.type !== 'header') ? subtitleColor : subtitleColor)
+                                }}
+                                className={`flex items-start text-sm ${feature.type === 'header' ? 'pt-2 pb-1 font-medium' : 'font-light'}`}>
                                 {feature.type !== 'header' && (
-                                    <span className={plan.highlighted ? 'text-white' : 'text-zinc-900'}>
+                                    <span style={{ marginRight: '0.75rem' }}>
+                                        {/* Pass color via inheritance or styled wrapper if needed, but color on li propagates to currentcolor strokes */}
                                         {getIcon(feature.icon)}
                                     </span>
                                 )}
                                 {feature.name}
-                            </li>
+                            </motion.li>
                         ))}
                     </ul>
                 </div>
 
                 {/* Button */}
-                <button
-                    className={`w-full py-4 rounded-full font-medium transition-transform active:scale-[0.98] mt-auto ${plan.highlighted
-                        ? 'bg-[#0080ff] text-white hover:bg-blue-500'
-                        : 'bg-white text-zinc-900 border border-zinc-200 hover:bg-zinc-50 shadow-sm'
-                        }`}
-                >
+                <motion.button
+                    style={{ backgroundColor: buttonBg, color: buttonText, borderColor: buttonBorder }}
+                    className="w-full py-4 rounded-full font-medium transition-transform active:scale-[0.98] mt-auto border shadow-sm">
                     {plan.buttonText}
-                </button>
+                </motion.button>
             </motion.div>
         );
     }
@@ -217,30 +179,23 @@ const PricingTable = () => {
                 </div>
             </div>
 
-            {/* Draggable Area - Wraps existing state logic */}
+
             <motion.div
                 className="relative w-full h-full flex items-center justify-center perspective-[1200px]"
-                // We don't drag THIS div physically, we just use it to capture drag gestures 
-                // and update the 'x' motion value manually?
-                // Or we can just use drag="x" and apply the x style to nothing?
                 style={{ cursor: 'grab' }}
-                whileTap={{ cursor: 'grabbing' }}
-            >
-                {/* Invisible Drag Proxy to Drive the Animation */}
+                whileTap={{ cursor: 'grabbing' }}>
                 <motion.div
                     drag="x"
-                    dragConstraints={{ left: -100000, right: 100000 }} // Effectively infinite
-                    dragElastic={0.05} // Add some resistance at extreme edges if we hit them, but we won't.
+                    dragConstraints={{ left: -100000, right: 100000 }}
+                    dragElastic={0.05}
                     style={{ x, opacity: 0, width: '100%', height: '100%', position: 'absolute', zIndex: 100 }}
                     dragTransition={{
-                        power: 0.3, // Inertia strength
-                        timeConstant: 200, // Duration of inertial slide
+                        power: 0.3,
+                        timeConstant: 200,
                         modifyTarget: (target) => {
-                            // Snap to nearest card (400px intervals)
                             return Math.round(target / CARD_WIDTH) * CARD_WIDTH;
                         }
-                    }}
-                />
+                    }}/>
 
                 {/* Render Cards */}
                 {plans.map((plan, index) => (
