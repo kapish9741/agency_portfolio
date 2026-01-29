@@ -67,8 +67,8 @@ export default function Home() {
           <main className="min-h-screen flex flex-col">
             <About />
             <RecentWorks />
-            <div className="h-[200vh]" />
             <Services />
+            {/* <div className="h-[200vh]" /> */}
             {/* <Pricing /> */}
             {/* <FAQs /> */}
           </main>

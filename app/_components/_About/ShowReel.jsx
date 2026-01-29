@@ -154,7 +154,7 @@ const ShowReel = () => {
             viewport={{ once: true }}
           >
             <motion.span
-              className="font-urbanist text-5xl md:text-7xl font-light text-[#fbfbfb87] tracking-tight inline-block"
+              className="font-urbanist text-5xl md:text-7xl font-light text-[#3a3939] tracking-tight inline-block"
               animate={{ x: isHovered ? -25 : 0 }}
               transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
             >
@@ -169,7 +169,7 @@ const ShowReel = () => {
             viewport={{ once: true }}
           >
             <motion.span
-              className="font-urbanist text-5xl md:text-7xl font-light text-[#fbfbfb87] tracking-tight inline-block"
+              className="font-urbanist text-5xl md:text-7xl font-light text-[#3a3939] tracking-tight inline-block"
               animate={{ x: isHovered ? 25 : 0 }}
               transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
             >
@@ -187,7 +187,7 @@ const ShowReel = () => {
         >
 
           {/* Thumbnail Video Card */}
-          <div className="w-full h-full rounded-lg overflow-hidden shadow-lg relative bg-gray-100 transition-transform duration-500">
+          <div className="w-full h-full rounded-lg overflow-hidden shadow-lg relative transition-transform duration-500">
             <video
               src="/Hero/Intro.mp4"
               className="w-full h-full object-cover"
@@ -209,7 +209,7 @@ const ShowReel = () => {
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            className="fixed inset-0 z-[100] bg-black flex items-center justify-center"
+            className="fixed inset-0 z-[100] bg-white flex items-center justify-center"
             variants={modalVariants}
             initial="initial"
             animate="animate"

@@ -3,6 +3,30 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCarousel } from '@/components/ui/lumina-interactive-list';
+import { StickyCard002 } from '@/components/ui/skiper-ui/skiper17';
+
+
+const cards = [
+    {
+        id: 1,
+        image: "/projects/image.png",
+        link: "https://www.instagram.com/",
+        alt: "Description 1",
+    },
+    {
+        id: 2,
+        image: "/projects/image.png",
+        link: "https://www.google.com/",
+        alt: "Description 2",
+    },
+    {
+        id: 3,
+        image: "/projects/image.png",
+        link: "https://www.instagram.com/",
+        alt: "Description 3",
+    },
+];
+
 
 const Services = () => {
 
@@ -35,11 +59,9 @@ const Services = () => {
         </div> */}
       </div>
 
-      {/* <div className='h-screen'>
-
-        <GlassCarousel />
-      </div> */}
-
+      <div className='h-screen w-full relative z-10'>
+        <StickyCard002 cards={cards} />
+      </div>
 
     </section>
   );

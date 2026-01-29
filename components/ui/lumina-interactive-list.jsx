@@ -1,47 +1,19 @@
 import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import * as THREE from 'three';
+import GlassSurface from '../GlassSurface';
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 export function GlassCarousel() {
-  const containerRef = useRef(null);
+    const containerRef = useRef(null);
+    const cursorRef = useRef(null);
 
-  useEffect(() => {
-    // --- DYNAMIC SCRIPT LOADING ---
-    const loadScripts = async () => {
-      const loadScript = (src, globalName) => new Promise((res, rej) => {
-        if ((window)[globalName]) { res(); return; }
-        if (document.querySelector(`script[src="${src}"]`)) {
-          const check = setInterval(() => {
-            if ((window)[globalName]) { clearInterval(check); res(); }
-          }, 50);
-          setTimeout(
-              () => { clearInterval(check); rej(new Error(`Timeout waiting for ${globalName}`)); },
-              10000
-          );
-          return;
-        }
-        const s = document.createElement('script');
-        s.src = src;
-        s.onload = () => { setTimeout(() => res(), 100); };
-        s.onerror = () => rej(new Error(`Failed to load ${src}`));
-        document.head.appendChild(s);
-      });
-      
-      try {
-        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', 'gsap');
-        await loadScript(
-            'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
-            'THREE'
-        );
-      } catch (e) {
-        console.error('Failed to load base scripts:', e);
-      }
-      
-      initApplication();
-    };
-
-    const initApplication = async () => {
-        // --- PRELOADER REMOVED ---
-        
-        // --- MAIN LOGIC ---
+    useEffect(() => {
+        // --- CONFIGURATION ---
         const SLIDER_CONFIG = {
             settings: {
                 transitionDuration: 2.5, autoSlideSpeed: 5000, currentEffect: "glass", currentEffectPreset: "Default",
@@ -61,27 +33,12 @@ export function GlassCarousel() {
             }
         };
 
-        // --- GLOBAL STATE ---
-        let currentSlideIndex = 0;
-        let isTransitioning = false;
-        let shaderMaterial, renderer, scene, camera;
-        let slideTextures = [];
-        let texturesLoaded = false;
-        let autoSlideTimer = null;
-        let progressAnimation = null;
-        let sliderEnabled = false;
-
-        const SLIDE_DURATION = () => SLIDER_CONFIG.settings.autoSlideSpeed;
-        const PROGRESS_UPDATE_INTERVAL = 50;
-        const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
-
         const slides = [
-            { title: "Ethereal Glow", description: "A soft, radiant light that illuminates the soul.", media: "https://assets.codepen.io/7558/orange-portrait-001.jpg" },
-            { title: "Rose Mirage", description: "Lost in a desert of blooming dreams and endless horizons.", media: "https://assets.codepen.io/7558/orange-portrait-002.jpg" },
-            { title: "Velvet Mystique", description: "Wrapped in the deep, luxurious embrace of the night.", media: "https://assets.codepen.io/7558/orange-portrait-003.jpg" },
-            { title: "Golden Hour", description: "That fleeting moment when the world is dipped in gold.", media: "https://assets.codepen.io/7558/orange-portrait-004.jpg" },
-            { title: "Midnight Dreams", description: "Where reality fades and imagination takes flight.", media: "https://assets.codepen.io/7558/orange-portrait-005.jpg" },
-            { title: "Silver Light", description: "A cool, metallic shimmer reflecting the urban pulse.", media: "https://assets.codepen.io/7558/orange-portrait-006.jpg" }
+            { title: "Ethereal Glow", description: "A soft, radiant light that illuminates the soul.", media: "/projects/1.webp" },
+            { title: "Rose Mirage", description: "Lost in a desert of blooming dreams and endless horizons.", media: "/projects/2.webp" },
+            { title: "Velvet Mystique", description: "Wrapped in the deep, luxurious embrace of the night.", media: "/projects/3.webp" },
+            { title: "Golden Hour", description: "That fleeting moment when the world is dipped in gold.", media: "/projects/4.webp" },
+            { title: "Midnight Dreams", description: "Where reality fades and imagination takes flight.", media: "/projects/5.webp" },
         ];
 
         // --- SHADERS ---
@@ -132,7 +89,7 @@ export function GlassCarousel() {
                 if (progress > 0.95) img = mix(img, texture2D(uTexture2, uv2), (progress - 0.95) / 0.05);
                 return mix(oldImg, img, param);
             }
-            // Simplified stubs for other effects (to save space, logic is in glassEffect mainly for demo)
+            // Simplified stubs
             vec4 frostEffect(vec2 uv, float progress) { return mix(texture2D(uTexture1, getCoverUV(uv, uTexture1Size)), texture2D(uTexture2, getCoverUV(uv, uTexture2Size)), progress); }
             vec4 rippleEffect(vec2 uv, float progress) { return mix(texture2D(uTexture1, getCoverUV(uv, uTexture1Size)), texture2D(uTexture2, getCoverUV(uv, uTexture2Size)), progress); }
             vec4 plasmaEffect(vec2 uv, float progress) { return mix(texture2D(uTexture1, getCoverUV(uv, uTexture1Size)), texture2D(uTexture2, getCoverUV(uv, uTexture2Size)), progress); }
@@ -147,237 +104,59 @@ export function GlassCarousel() {
             }
         `;
 
-        // --- CORE FUNCTIONS ---
-        const getEffectIndex = (n) => (({
-            glass: 0,
-            frost: 1,
-            ripple: 2,
-            plasma: 3,
-            timeshift: 4
-        }))[n] || 0;
-        
+        // --- GLOBAL STATE (Scoped to Effect) ---
+        let shaderMaterial, renderer, scene, camera;
+        let slideTextures = [];
+        let texturesLoaded = false;
+
+        // Tracking State for Scroll Logic
+        let currentSegment = -1;
+
+        const getEffectIndex = (n) => (({ glass: 0, frost: 1, ripple: 2, plasma: 3, timeshift: 4 }))[n] || 0;
+
         const updateShaderUniforms = () => {
-             if (!shaderMaterial) return;
-             const s = SLIDER_CONFIG.settings, u = shaderMaterial.uniforms;
-             for (const key in s) {
-                 const uName = 'u' + key.charAt(0).toUpperCase() + key.slice(1);
-                 if (u[uName]) u[uName].value = s[key];
-             }
-             u.uEffectType.value = getEffectIndex(s.currentEffect);
-        };
-
-        const splitText = (text) => {
-            return text.split('').map(
-                char => `<span style="display: inline-block; opacity: 0;">${char === ' ' ? '&nbsp;' : char}</span>`
-            ).join('');
-        };
-
-        const updateContent = (idx) => {
-            const titleEl = document.getElementById('mainTitle');
-            const descEl = document.getElementById('mainDesc');
-            if (titleEl && descEl) {
-                 // Universal animate out (fade up)
-                 gsap.to(
-                     titleEl.children,
-                     { y: -20, opacity: 0, duration: 0.5, stagger: 0.02, ease: "power2.in" }
-                 );
-                 gsap.to(descEl, { y: -10, opacity: 0, duration: 0.4, ease: "power2.in" });
-                 
-                 setTimeout(() => {
-                     // Set new content
-                     titleEl.innerHTML = splitText(slides[idx].title);
-                     descEl.textContent = slides[idx].description; 
-                     
-                     // Reset state (general reset, specific animations might override)
-                     gsap.set(titleEl.children, { opacity: 0 });
-                     gsap.set(descEl, { y: 20, opacity: 0 });
-
-                     // 6 Different Animations
-                     const children = titleEl.children;
-                     switch(idx) {
-                        case 0: // Stagger Up (Original)
-                            gsap.set(children, { y: 20 });
-                            gsap.to(
-                                children,
-                                { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" }
-                            );
-                            gsap.to(
-                                descEl,
-                                { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" }
-                            );
-                            break;
-                        case 1: // Stagger Down
-                            gsap.set(children, { y: -20 });
-                            gsap.to(
-                                children,
-                                { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "back.out(1.7)" }
-                            );
-                            gsap.to(
-                                descEl,
-                                { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" }
-                            );
-                            break;
-                        case 2: // Blur Reveal (Randomish)
-                            gsap.set(children, { filter: "blur(10px)", scale: 1.5, y: 0 });
-                            gsap.to(
-                                children,
-                                { filter: "blur(0px)", scale: 1, opacity: 1, duration: 1, stagger: { amount: 0.5, from: "random" }, ease: "power2.out" }
-                            );
-                            gsap.to(descEl, { y: 0, opacity: 1, duration: 1, delay: 0.3, ease: "power2.out" });
-                            break;
-                        case 3: // Scale In
-                            gsap.set(children, { scale: 0, y: 0 });
-                            gsap.to(
-                                children,
-                                { scale: 1, opacity: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.5)" }
-                            );
-                            gsap.to(
-                                descEl,
-                                { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" }
-                            );
-                            break;
-                        case 4: // Rotate X (Flip)
-                            gsap.set(children, { rotationX: 90, y: 0, transformOrigin: "50% 50%" });
-                            gsap.to(
-                                children,
-                                { rotationX: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power2.out" }
-                            );
-                            gsap.to(
-                                descEl,
-                                { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power2.out" }
-                            );
-                            break;
-                        case 5: // Side Reveal (Slide Left)
-                            gsap.set(children, { x: 30, y: 0 });
-                            gsap.to(
-                                children,
-                                { x: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" }
-                            );
-                            gsap.to(
-                                descEl,
-                                { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" }
-                            );
-                            break;
-                        default: // Fallback
-                            gsap.set(children, { y: 20 });
-                            gsap.to(
-                                children,
-                                { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" }
-                            );
-                            gsap.to(
-                                descEl,
-                                { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" }
-                            );
-                     }
-
-                 }, 500); 
+            if (!shaderMaterial) return;
+            const s = SLIDER_CONFIG.settings, u = shaderMaterial.uniforms;
+            for (const key in s) {
+                const uName = 'u' + key.charAt(0).toUpperCase() + key.slice(1);
+                if (u[uName]) u[uName].value = s[key];
             }
+            u.uEffectType.value = getEffectIndex(s.currentEffect);
         };
 
-        const navigateToSlide = (targetIndex) => {
-            if (isTransitioning || targetIndex === currentSlideIndex) return; // BLOCKING LOGIC
-            stopAutoSlideTimer();
-            quickResetProgress(currentSlideIndex);
-            
-            const currentTexture = slideTextures[currentSlideIndex];
-            const targetTexture = slideTextures[targetIndex];
-            if (!currentTexture || !targetTexture) return;
-
-            isTransitioning = true;
-            shaderMaterial.uniforms.uTexture1.value = currentTexture;
-            shaderMaterial.uniforms.uTexture2.value = targetTexture;
-            shaderMaterial.uniforms.uTexture1Size.value = currentTexture.userData.size;
-            shaderMaterial.uniforms.uTexture2Size.value = targetTexture.userData.size;
-            
-            updateContent(targetIndex);
-
-            currentSlideIndex = targetIndex;
-            updateCounter(currentSlideIndex);
-            updateNavigationState(currentSlideIndex);
-            
-            gsap.fromTo(shaderMaterial.uniforms.uProgress, { value: 0 }, {
-                value: 1,
-                duration: TRANSITION_DURATION(),
-                ease: "power2.inOut",
-                onComplete: () => {
-                    shaderMaterial.uniforms.uProgress.value = 0;
-                    shaderMaterial.uniforms.uTexture1.value = targetTexture;
-                    shaderMaterial.uniforms.uTexture1Size.value = targetTexture.userData.size;
-                    isTransitioning = false;
-                    safeStartTimer(100);
+        const updateTimelineState = (activeIdx, progress) => {
+            const segments = document.querySelectorAll(".timeline-segment .timeline-fill");
+            segments.forEach((fill, i) => {
+                if (i < activeIdx) {
+                    fill.style.width = "100%";
+                    fill.style.opacity = 1;
+                } else if (i > activeIdx) {
+                    fill.style.width = "0%";
+                    fill.style.opacity = 1;
+                } else {
+                    // Current
+                    fill.style.width = `${progress * 100}%`;
+                    fill.style.opacity = 1;
                 }
             });
         };
 
-        const handleSlideChange = () => {
-            if (isTransitioning || !texturesLoaded || !sliderEnabled) return;
-            navigateToSlide((currentSlideIndex + 1) % slides.length);
-        };
-
-        const createSlidesNavigation = () => {
-            const nav = document.getElementById("slidesNav"); if (!nav) return;
-            nav.innerHTML = "";
-            slides.forEach((slide, i) => {
-                const item = document.createElement("div");
-                item.className = `slide-nav-item${i === 0 ? " active" : ""}`;
-                item.dataset.slideIndex = String(i);
-                item.innerHTML = `<div class="slide-progress-line"><div class="slide-progress-fill"></div></div><div class="slide-nav-title">${slide.title}</div>`;
-                item.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    if (!isTransitioning && i !== currentSlideIndex) {
-                         stopAutoSlideTimer();
-                         quickResetProgress(currentSlideIndex);
-                         navigateToSlide(i);
-                    }
-                });
-                nav.appendChild(item);
-            });
-        };
-
-        const updateNavigationState = (idx) => document.querySelectorAll(".slide-nav-item").forEach((el, i) => el.classList.toggle("active", i === idx));
-        const updateSlideProgress = (idx, prog) => { const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill"); if (el) { el.style.width = `${prog}%`; el.style.opacity = '1'; } };
-        const fadeSlideProgress = (idx) => { const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill"); if (el) { el.style.opacity = '0'; setTimeout(() => el.style.width = "0%", 300); } };
-        const quickResetProgress = (idx) => { const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill"); if (el) { el.style.transition = "width 0.2s ease-out"; el.style.width = "0%"; setTimeout(() => el.style.transition = "width 0.1s ease, opacity 0.3s ease", 200); } };
-        const updateCounter = (idx) => { 
-            const sn = document.getElementById("slideNumber"); if (sn) sn.textContent = String(idx + 1).padStart(2, "0"); 
-            const st = document.getElementById("slideTotal"); if (st) st.textContent = String(slides.length).padStart(2, "0"); 
-        };
-
-        const startAutoSlideTimer = () => {
-             if (!texturesLoaded || !sliderEnabled) return;
-             stopAutoSlideTimer();
-             let progress = 0;
-             const increment = (100 / SLIDE_DURATION()) * PROGRESS_UPDATE_INTERVAL;
-             progressAnimation = setInterval(() => {
-                 if (!sliderEnabled) { stopAutoSlideTimer(); return; }
-                 progress += increment;
-                 updateSlideProgress(currentSlideIndex, progress);
-                 if (progress >= 100) {
-                     clearInterval(progressAnimation); progressAnimation = null;
-                     fadeSlideProgress(currentSlideIndex);
-                     if (!isTransitioning) handleSlideChange();
-                 }
-             }, PROGRESS_UPDATE_INTERVAL);
-        };
-        const stopAutoSlideTimer = () => { if (progressAnimation) clearInterval(progressAnimation); if (autoSlideTimer) clearTimeout(autoSlideTimer); progressAnimation = null; autoSlideTimer = null; };
-        const safeStartTimer = (delay = 0) => { stopAutoSlideTimer(); if (sliderEnabled && texturesLoaded) { if (delay > 0) autoSlideTimer = setTimeout(startAutoSlideTimer, delay); else startAutoSlideTimer(); } };
-
         const loadImageTexture = (src) => new Promise((resolve, reject) => {
-             const l = new THREE.TextureLoader();
-             l.load(
-                 src,
-                 (t) => { t.minFilter = t.magFilter = THREE.LinearFilter; t.userData = { size: new THREE.Vector2(t.image.width, t.image.height) }; resolve(t); },
-                 undefined,
-                 reject
-             );
+            const l = new THREE.TextureLoader();
+            l.load(src, (t) => {
+                t.minFilter = t.magFilter = THREE.LinearFilter;
+                t.userData = { size: new THREE.Vector2(t.image.width, t.image.height) };
+                resolve(t);
+            }, undefined, reject);
         });
 
         const initRenderer = async () => {
             const canvas = document.querySelector(".webgl-canvas"); if (!canvas) return;
             scene = new THREE.Scene(); camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
             renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
-            renderer.setSize(window.innerWidth, window.innerHeight); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
             shaderMaterial = new THREE.ShaderMaterial({
                 uniforms: {
                     uTexture1: { value: null }, uTexture2: { value: null }, uProgress: { value: 0 },
@@ -395,75 +174,286 @@ export function GlassCarousel() {
                 vertexShader, fragmentShader
             });
             scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), shaderMaterial));
-            
+
             for (const s of slides) { try { slideTextures.push(await loadImageTexture(s.media)); } catch { console.warn("Failed texture"); } }
+
             if (slideTextures.length >= 2) {
+                // Initial Setup
                 shaderMaterial.uniforms.uTexture1.value = slideTextures[0];
                 shaderMaterial.uniforms.uTexture2.value = slideTextures[1];
                 shaderMaterial.uniforms.uTexture1Size.value = slideTextures[0].userData.size;
                 shaderMaterial.uniforms.uTexture2Size.value = slideTextures[1].userData.size;
-                texturesLoaded = true; sliderEnabled = true;
-                updateShaderUniforms(); // Apply config
-                document.querySelector(".slider-wrapper")?.classList.add("loaded"); // Fade in immediately
-                safeStartTimer(500);
+
+                texturesLoaded = true;
+                updateShaderUniforms();
+                document.querySelector(".slider-wrapper")?.classList.add("loaded");
+
+                updateTimelineState(0, 0);
             }
-            
-            const render = () => { requestAnimationFrame(render); renderer.render(scene, camera); };
+
+            const render = () => { if (renderer) { renderer.render(scene, camera); requestAnimationFrame(render); } };
             render();
         };
-        
-        createSlidesNavigation(); updateCounter(0); 
-        
-        // Init text content
-        const tEl = document.getElementById('mainTitle');
-        const dEl = document.getElementById('mainDesc');
-        if (tEl && dEl) {
-            tEl.innerHTML = splitText(slides[0].title);
-            dEl.textContent = slides[0].description;
-            // animate initial in
-            gsap.fromTo(
-                tEl.children,
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, stagger: 0.03, ease: "power3.out", delay: 0.5 }
-            );
-            gsap.fromTo(
-                dEl,
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.8 }
-            );
+
+        const createTimeline = () => {
+            const timeline = document.getElementById("sliderTimeline");
+            if (!timeline || timeline.children.length > 0) return;
+            timeline.innerHTML = "";
+            slides.forEach((_, i) => {
+                const segment = document.createElement("div");
+                segment.className = "timeline-segment";
+                const fill = document.createElement("div");
+                fill.className = "timeline-fill";
+                segment.appendChild(fill);
+                // Click to scroll
+                segment.addEventListener("click", () => {
+                    const totalDist = window.innerHeight * (slides.length);
+                    const targetScroll = (i / (slides.length)) * totalDist;
+                    const offset = containerRef.current.offsetTop;
+                    window.scrollTo({ top: offset + targetScroll, behavior: 'smooth' });
+                });
+                timeline.appendChild(segment);
+            });
+        };
+
+        // --- SCROLLTRIGGER SETUP ---
+        const initScrollTrigger = () => {
+            // Force refresh to ensure accurate layout readings
+            ScrollTrigger.refresh();
+
+            const totalSlides = slides.length;
+            const scrollDist = () => window.innerHeight * totalSlides;
+
+            ScrollTrigger.create({
+                trigger: containerRef.current,
+                pin: true,
+                start: "top top",
+                end: () => `+=${scrollDist()}`,
+                scrub: 0.1,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                    if (!texturesLoaded || !shaderMaterial) return;
+
+                    const totalProgress = self.progress; // 0 to 1
+
+                    // Key change: Use totalSlides for segment calculation logic
+                    // Segment 0: Static Image 0
+                    // Segment 1: Transition 0 -> 1
+                    // Segment 2: Transition 1 -> 2
+                    // Segment 3: Transition 2 -> 3
+                    // Segment 4: Transition 3 -> 4
+
+                    const totalSegments = totalSlides;
+                    const rawValue = totalProgress * totalSegments;
+
+                    let segmentIndex = Math.floor(rawValue);
+                    if (segmentIndex >= totalSegments) segmentIndex = totalSegments - 1;
+
+                    let localProgress = rawValue - segmentIndex;
+                    if (totalProgress >= 1) localProgress = 1;
+
+                    // Update Textures and Uniforms based on Segment Index
+                    if (currentSegment !== segmentIndex) {
+                        let t1, t2;
+
+                        if (segmentIndex === 0) {
+                            // Segment 0: Hold Image 0
+                            t1 = slideTextures[0];
+                            t2 = slideTextures[0]; // Or slideTextures[1] but we will force progress 0
+                        } else {
+                            // Segments 1..4: Transitions
+                            // Segment 1 -> Transition 0->1
+                            // Segment 4 -> Transition 3->4
+                            const fromIdx = segmentIndex - 1;
+                            const toIdx = segmentIndex;
+
+                            t1 = slideTextures[fromIdx];
+                            t2 = slideTextures[toIdx];
+                        }
+
+                        if (t1 && t2) {
+                            shaderMaterial.uniforms.uTexture1.value = t1;
+                            shaderMaterial.uniforms.uTexture2.value = t2;
+                            shaderMaterial.uniforms.uTexture1Size.value = t1.userData.size;
+                            shaderMaterial.uniforms.uTexture2Size.value = t2.userData.size;
+                        }
+                        currentSegment = segmentIndex;
+                    }
+
+                    // Calculate Shader Progress
+                    let shaderProgress;
+                    if (segmentIndex === 0) {
+                        shaderProgress = 0; // Static
+                    } else {
+                        shaderProgress = localProgress; // 0 to 1 transition
+                    }
+
+                    // Update Uniforms
+                    shaderMaterial.uniforms.uProgress.value = shaderProgress;
+
+                    // Update Timeline
+                    // Timeline still maps 1:1 to segments, which works well with this logic
+                    updateTimelineState(segmentIndex, localProgress);
+                }
+            });
+        };
+
+        // Mouse Tracker - Smooth Logic from ShowReel
+        const cursor = cursorRef.current;
+
+        // Initial state: center pivot
+        if (cursor) {
+            gsap.set(cursor, { xPercent: -50, yPercent: -50, x: window.innerWidth / 2, y: window.innerHeight / 2 });
         }
 
-        initRenderer();
-        
-        // Listeners
-        document.addEventListener(
-            "visibilitychange",
-            () => document.hidden ? stopAutoSlideTimer() : (!isTransitioning && safeStartTimer())
-        );
-        window.addEventListener(
-            "resize",
-            () => { if (renderer) { renderer.setSize(window.innerWidth, window.innerHeight); shaderMaterial.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight); } }
-        );
-    };
+        const moveCursor = (e) => {
+            if (cursor) {
+                gsap.to(cursor, {
+                    x: e.clientX,
+                    y: e.clientY,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    overwrite: "auto"
+                });
+            }
+        };
 
-    loadScripts();
-    return () => {};
-  }, []);
+        // Initialize
+        createTimeline();
 
-  return (
-      <>
-          <main className="slider-wrapper" ref={containerRef}>
-            <canvas className="webgl-canvas"></canvas>
-            <span className="slide-number" id="slideNumber">01</span>
-            <span className="slide-total" id="slideTotal">06</span>
-            
-            <div className="slide-content">
-                <h1 className="slide-title" id="mainTitle"></h1>
-                <p className="slide-description" id="mainDesc"></p>
-            </div>
-           
-            <nav className="slides-navigation" id="slidesNav"></nav>
-          </main>
-      </>
-  );
+        initRenderer().then(() => {
+            // Slight delay to allow layout to settle
+            setTimeout(initScrollTrigger, 100);
+        });
+
+        // Event Listeners
+        const onResize = () => {
+            if (renderer) {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                shaderMaterial.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+            }
+        };
+        window.addEventListener("resize", onResize);
+        window.addEventListener("mousemove", moveCursor);
+
+        return () => {
+            window.removeEventListener("resize", onResize);
+            window.removeEventListener("mousemove", moveCursor);
+            if (renderer) renderer.dispose();
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
+
+    return (
+        <>
+            <main className="slider-wrapper" ref={containerRef}>
+                <canvas className="webgl-canvas"></canvas>
+
+                {/* Custom Cursor */}
+                <div ref={cursorRef} className="custom-cursor-wrapper">
+                    <GlassSurface
+                        width={170}
+                        height={170}
+                        borderRadius={100}
+                        displace={0.5}
+                        distortionScale={-180}
+                        redOffset={0}
+                        greenOffset={10}
+                        blueOffset={20}
+                        brightness={50}
+                        opacity={0.93}
+                        mixBlendMode="screen"
+                        className="flex items-center justify-center cursor-glass-surface"
+                    >
+                        <span className="cursor-text font-urbanist">VIEW</span>
+                    </GlassSurface>
+                </div>
+
+                {/* REMOVED: slide-number, slide-total, slide-content, slides-navigation */}
+
+                <div className="slider-timeline" id="sliderTimeline"></div>
+
+                <style jsx>{`
+                    .slider-wrapper {
+                        position: relative;
+                        width: 100%;
+                        height: 100vh; /* Force Fullscreen for Pinning */
+                        overflow: hidden;
+                        z-index: 50; /* High Z-Index */
+                        cursor: none;
+                    }
+                    .custom-cursor-wrapper {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        z-index: 99999;
+                        pointer-events: none;
+                        will-change: transform;
+                    }
+                    .cursor-text {
+                        color: rgba(255,255,255,0.9);
+                        font-family: inherit;
+                        font-weight: 600;
+                        font-size: 14px;
+                        pointer-events: none;
+                    }
+                    :global(.cursor-glass-surface) {
+                        pointer-events: none !important;
+                    }
+                    .slider-timeline {
+                        position: absolute;
+                        bottom: 40px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 75%;
+                        max-width: 900px;
+                        height: 4px;
+                        display: flex;
+                        gap: 8px;
+                        z-index: 9999;
+                        pointer-events: none;
+                    }
+                    .webgl-canvas {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 1;
+                    }
+
+                    :global(.timeline-segment) {
+                        flex: 1;
+                        height: 100%;
+                        background: rgba(255, 255, 255, 0.25);
+                        backdrop-filter: blur(8px);
+                        border-radius: 4px;
+                        overflow: hidden;
+                        cursor: pointer;
+                        pointer-events: auto;
+                        position: relative;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                        border: 1px solid rgba(255,255,255,0.1);
+                    }
+                    :global(.timeline-segment:hover) {
+                        background: rgba(255, 255, 255, 0.4);
+                        height: 6px;
+                        transform: translateY(-2px);
+                    }
+                    :global(.timeline-fill) {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        height: 100%;
+                        width: 0%;
+                        background: #fff;
+                        box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+                        border-radius: 4px;
+                        will-change: width;
+                    }
+                `}</style>
+            </main>
+        </>
+    );
 }
