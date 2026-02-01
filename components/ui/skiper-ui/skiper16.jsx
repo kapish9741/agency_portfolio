@@ -198,7 +198,6 @@ const StickyCard_001 = ({
           className="
             pointer-events-none absolute inset-0
             opacity-[0.035] mix-blend-overlay
-            bg-[url('/noise.png')]
             z-40
           "
         />
@@ -228,7 +227,7 @@ const StickyCard_001 = ({
                   tracking-[-0.04em]
                   leading-[0.95]
                   text-white">
-                Our <span className="font-dancing-script text-[#3] tracking-normal">Services</span>
+                Our <span className="font-dancing-script tracking-normal">Services</span>
               </h2>
 
               <p className="mt-6 text-sm uppercase tracking-[0.3em] text-white/50">
@@ -239,7 +238,7 @@ const StickyCard_001 = ({
         ) : (
           <>
             {/* Background Video (Left Side) */}
-            <div className="absolute top-0 left-0 w-1/2 h-full z-0 overflow-hidden">
+            {/* <div className="absolute top-0 left-0 w-1/2 h-full z-0 overflow-hidden">
               <motion.video
                 style={{ scale: imageScale }}
                 src="/services/mesh.mp4"
@@ -249,9 +248,8 @@ const StickyCard_001 = ({
                 playsInline
                 className="w-full h-full object-cover opacity-50 block"
               />
-              {/* Dark overlay for text readability */}
               <div className="absolute inset-0 bg-black/10" />
-            </div>
+            </div> */}
 
             {/* ================= LEFT: CONTENT (Redesigned) ================= */}
             <div className="relative z-10 w-1/2 h-full flex flex-col">

@@ -68,8 +68,7 @@ export default function Home() {
             <About />
             <RecentWorks />
             <Services />
-            {/* <div className="h-[200vh]" /> */}
-            {/* <Pricing /> */}
+            <Pricing />
             {/* <FAQs /> */}
           </main>
         </div>
