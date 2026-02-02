@@ -8,7 +8,7 @@ const Navbar = () => {
         <nav className="w-full relative z-110">
             <div className='flex items-center justify-between font-urbanist px-20 pt-13'>
                 <div>
-                    <p className='text-blue-700 text-5xl font-semibold'>Agency.</p>
+                    <p className='text-[#126cfd] text-5xl font-semibold'>Agency.</p>
                 </div>
                 <div>
                     <MenuButton />

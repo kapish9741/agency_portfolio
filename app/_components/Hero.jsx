@@ -64,7 +64,7 @@ const Hero = () => {
               className="w-24 h-17 object-cover rounded-[34px] shadow-2xl"
             />
           </motion.span>{' '}
-          <span className="text-blue-700 font-dancing-script">Designs</span> <br className="hidden md:block" />
+          <span className="text-[#126cfd] font-dancing-script">Designs</span> <br className="hidden md:block" />
           for{' '}
           <motion.span
             initial={{ x: 4, y: 4 }}
@@ -86,9 +86,9 @@ const Hero = () => {
               className="w-24 h-17 object-cover rounded-[34px] shadow-2xl"
             />
           </motion.span>{' '}
-          ambitious <span className='text-blue-700 font-dancing-script'>Brands</span> <br className="hidden md:block" />
+          ambitious <span className='text-[#126cfd] font-dancing-script'>Brands</span> <br className="hidden md:block" />
           <span>building digital </span>
-          <span className='text-blue-700 font-dancing-script'>Products.</span>
+          <span className='text-[#126cfd] font-dancing-script'>Products.</span>
 
         </h1>
 
@@ -96,7 +96,7 @@ const Hero = () => {
           From MVPs to rebrands, we make it easy for startups to launch, grow, and scale with clean, conversion-focused designs that are fast, clear, and scalable.
         </h3>
 
-        <FlowButton text="View Plans" />
+        <FlowButton text="View Plans" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} />
       </div>
 
       {/* Video Container that expands to full screen */}

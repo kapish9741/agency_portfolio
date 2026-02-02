@@ -8,7 +8,8 @@ function FlowingMenu({
   bgColor = '#060010',
   marqueeBgColor = '#fff',
   marqueeTextColor = '#060010',
-  borderColor = '#fff'
+  borderColor = '#fff',
+  onItemClick
 }) {
   return (
     <div className="w-full overflow-hidden" style={{ backgroundColor: bgColor }}>
@@ -24,6 +25,7 @@ function FlowingMenu({
             borderColor={borderColor}
             isFirst={idx === 0}
             isLast={idx === items.length - 1}
+            onItemClick={onItemClick}
           />
         ))}
       </nav>
@@ -31,7 +33,7 @@ function FlowingMenu({
   );
 }
 
-function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marqueeTextColor, borderColor, isFirst, isLast }) {
+function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marqueeTextColor, borderColor, isFirst, isLast, onItemClick }) {
   const itemRef = useRef(null);
   const marqueeRef = useRef(null);
   const marqueeInnerRef = useRef(null);
@@ -129,6 +131,7 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
         href={link}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={onItemClick}
         style={{ color: textColor }}
       >
         {text}

@@ -9,16 +9,20 @@ import { Link000 } from '@/components/ui/skiper-ui/skiper40';
 
 
 const demoItems = [
-    { link: '#', text: 'Home', image: 'https://picsum.photos/600/400?random=1' },
-    { link: '#', text: 'About', image: 'https://picsum.photos/600/400?random=2' },
-    { link: '#', text: 'Work', image: 'https://picsum.photos/600/400?random=3' },
-    { link: '#', text: 'Services', image: 'https://picsum.photos/600/400?random=4' },
-    { link: '#', text: 'Contact', image: 'https://picsum.photos/600/400?random=5' }
+    { link: '#home', text: 'Home', image: 'https://picsum.photos/600/400?random=1' },
+    { link: '#about', text: 'About', image: 'https://picsum.photos/600/400?random=2' },
+    { link: '#work', text: 'Recent Work', image: 'https://picsum.photos/600/400?random=3' },
+    { link: '#services', text: 'Services', image: 'https://picsum.photos/600/400?random=4' },
+    { link: '', text: 'Contact', image: 'https://picsum.photos/600/400?random=5' }
 ];
 
 
 const MenuPage = () => {
     const { isMenuOpen, setIsMenuOpen } = useStore();
+
+    const handleItemClick = () => {
+        setIsMenuOpen(false);
+    };
 
     const overlayVariants = {
         initial: {
@@ -53,15 +57,17 @@ const MenuPage = () => {
                     speed={5}
                     textColor="#ffffff"
                     bgColor="#000000"
-                    marqueeBgColor="#1e40af"
+                    marqueeBgColor="#126cfd"
                     marqueeTextColor="#ffffff"
-                    borderColor="#ffffff" />
+                    borderColor="#ffffff"
+                    onItemClick={handleItemClick}
+                />
             </div>
 
 
             <div className='absolute bottom-10 right-10 flex gap-10 text-white font-urbanist text-xl'>
-                <Link000 href="" className="hover:text-blue-500 transition-colors">Instagram</Link000>
-                <Link000 href="" className="hover:text-blue-500 transition-colors">LinkedIn</Link000>
+                <Link000 href="" className="hover:text-[#3a86ff] transition-colors">Instagram</Link000>
+                <Link000 href="" className="hover:text-[#3a86ff] transition-colors">LinkedIn</Link000>
             </div>
         </motion.div>
 

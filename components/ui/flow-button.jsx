@@ -5,10 +5,12 @@
 import { ArrowRight } from 'lucide-react';
 
 export function FlowButton({
-  text = "Modern Button"
+  text = "Modern Button",
+  ...props
 }) {
   return (
     <button
+      {...props}
       className="font-urbanist group relative flex items-center gap-1 overflow-hidden rounded-[100px] border-[1.5px] border-neutral-800 bg-neutral-800 px-8 py-3 text-[15px] font-semibold text-white cursor-pointer transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-white hover:rounded-[100px] active:scale-[0.95]">
       {/* Left arrow (arr-2) */}
       <ArrowRight

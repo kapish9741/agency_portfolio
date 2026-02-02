@@ -62,15 +62,25 @@ export default function Home() {
           <main className="bg-[#F4F4F4] overflow-x-hidden min-h-screen flex flex-col rounded-b-4xl">
             <AvailabilityBadge />
             <Navbar />
-            <Hero />
+            <div id="home">
+              <Hero />
+            </div>
           </main>
 
           <main className="min-h-screen flex flex-col">
             <section className="relative z-10 bg-[#0B0B0B]">
-              <About />
-              <RecentWorks />
-              <Services />
-              <Pricing />
+              <div id="about">
+                <About />
+              </div>
+              <div id="work">
+                <RecentWorks />
+              </div>
+              <div id="services">
+                <Services />
+              </div>
+              <div id="pricing">
+                <Pricing />
+              </div>
               <FAQs />
             </section>
             <Footer />

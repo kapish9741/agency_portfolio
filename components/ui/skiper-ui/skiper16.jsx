@@ -166,6 +166,10 @@ const StickyCard_001 = ({
   const container = useRef(null);
   const scale = useTransform(progress, range, [1, targetScale]);
 
+  // Scroll Animations for Intro Text (Only affects Intro card effectively)
+  const introOpacity = useTransform(progress, [0, 0.15], [1, 0]);
+  const introY = useTransform(progress, [0, 0.15], [0, -100]); // Parallax up
+
   const { scrollYProgress: cardScrollProgress } = useScroll({
     target: container,
     offset: ['start end', 'end start']
@@ -220,20 +224,61 @@ const StickyCard_001 = ({
             </div>
 
             {/* Section opener typography */}
-            <div className="relative z-10 max-w-5xl px-12 text-center justify-center">
-              <h2 className="
-                  text-[clamp(4rem,10vw,9rem)]
-                  font-medium
-                  tracking-[-0.04em]
-                  leading-[0.95]
-                  text-white">
-                Our <span className="font-dancing-script tracking-normal">Services</span>
-              </h2>
+            {/* Section opener typography */}
+            <motion.div
+              style={{ opacity: i === 0 ? introOpacity : 1, y: i === 0 ? introY : 0 }}
+              className="relative z-10 max-w-5xl px-12 text-center justify-center"
+            >
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+                  }
+                }}
+              >
+                <div className="overflow-hidden">
+                  <motion.h2
+                    variants={{
+                      hidden: { y: 100, filter: 'blur(10px)', opacity: 0 },
+                      visible: {
+                        y: 0,
+                        filter: 'blur(0px)',
+                        opacity: 1,
+                        transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
+                      }
+                    }}
+                    className="
+                      text-[clamp(4rem,10vw,9rem)]
+                      font-medium
+                      tracking-[-0.04em]
+                      leading-[0.95]
+                      text-white"
+                  >
+                    Our <span className="font-dancing-script tracking-normal">Services</span>
+                  </motion.h2>
+                </div>
 
-              <p className="mt-6 text-sm uppercase tracking-[0.3em] text-white/50">
-                What we do
-              </p>
-            </div>
+                <motion.p
+                  variants={{
+                    hidden: { y: 20, opacity: 0, filter: 'blur(5px)' },
+                    visible: {
+                      y: 0,
+                      opacity: 1,
+                      filter: 'blur(0px)',
+                      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
+                    }
+                  }}
+                  className="mt-6 text-sm uppercase tracking-[0.3em] text-white/50"
+                >
+                  What we do
+                </motion.p>
+              </motion.div>
+            </motion.div>
           </div>
         ) : (
           <>
@@ -261,11 +306,36 @@ const StickyCard_001 = ({
                   0{i}
                 </div>
 
-                <div className="relative z-10 flex flex-col gap-6">
-                  <h2 className="text-[4.5vw] font-medium leading-[0.9] tracking-tighter text-white">
-                    {title}
-                  </h2>
-                </div>
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: { staggerChildren: 0.15 }
+                    }
+                  }}
+                  className="relative z-10 flex flex-col gap-6"
+                >
+                  <div className="overflow-hidden">
+                    <motion.h2
+                      variants={{
+                        hidden: { y: 50, filter: 'blur(10px)', opacity: 0 },
+                        visible: {
+                          y: 0,
+                          filter: 'blur(0px)',
+                          opacity: 1,
+                          transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
+                        }
+                      }}
+                      className="text-[4.5vw] font-medium leading-[0.9] tracking-tighter text-white"
+                    >
+                      {title}
+                    </motion.h2>
+                  </div>
+                </motion.div>
               </div>
 
               {/* BOTTOM SECTION: Splits */}
