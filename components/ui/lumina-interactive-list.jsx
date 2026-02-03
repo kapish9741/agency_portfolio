@@ -28,7 +28,7 @@ export function GlassCarousel() {
     const handleCanvasClick = () => {
         const currentLink = slides[activeSegment]?.link;
         if (currentLink) {
-            window.open(currentLink, '_blank'); 
+            window.open(currentLink, '_blank');
         }
     };
 
@@ -99,7 +99,7 @@ export function GlassCarousel() {
         let ctx = gsap.context(() => {
             const cursor = cursorRef.current;
             if (cursor) {
-                gsap.set(cursor, { xPercent: -50, yPercent: -50, x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                gsap.set(cursor, { xPercent: -50, yPercent: -50, x: window.innerWidth / 2, y: window.innerHeight / 2, scale: 0 });
                 window.addEventListener("mousemove", (e) => {
                     gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 1.2, ease: "power3.out", overwrite: "auto" });
                 });
@@ -166,8 +166,8 @@ export function GlassCarousel() {
 
                     const p = self.progress;
                     let webglProgress = 0;
-                    let scale = 0.85; 
-                    let borderRadius = 40; 
+                    let scale = 0.85;
+                    let borderRadius = 40;
 
                     // PHASE 1: ENTRY
                     if (p < TRANSITION_PHASE) {
@@ -266,9 +266,18 @@ export function GlassCarousel() {
 
     return (
         <section className="scroll-wrapper" ref={wrapperRef}>
-            <div className="canvas-container" ref={containerRef}>
-                <canvas 
-                    ref={canvasRef} 
+            <div
+                className="canvas-container"
+                ref={containerRef}
+                onMouseEnter={() => {
+                    if (cursorRef.current) gsap.to(cursorRef.current, { scale: 1, duration: 0.3, ease: "power2.out" });
+                }}
+                onMouseLeave={() => {
+                    if (cursorRef.current) gsap.to(cursorRef.current, { scale: 0, duration: 0.3, ease: "power2.out" });
+                }}
+            >
+                <canvas
+                    ref={canvasRef}
                     className="webgl-canvas"
                     onClick={handleCanvasClick}
                 ></canvas>
@@ -277,8 +286,8 @@ export function GlassCarousel() {
                     <div className="slide-info">
                         <div className="slide-text-wrapper">
                             {slides.map((slide, i) => (
-                                <div 
-                                    key={i} 
+                                <div
+                                    key={i}
                                     className={`slide-text-item ${i === activeSegment ? 'active' : ''}`}
                                 >
                                     <h2 className="slide-title font-urbanist font-medium">{slide.title}</h2>
@@ -328,7 +337,7 @@ export function GlassCarousel() {
                     justify-content: center;
                     overflow: hidden;
                     /* KEY CHANGE: Hide system cursor globally on this component */
-                    cursor: none;
+                    /* cursor: none; REMOVED to allow system cursor outside canvas */
                 }
                 .canvas-container {
                     position: relative;
@@ -339,6 +348,7 @@ export function GlassCarousel() {
                     will-change: transform, border-radius;
                     transform: scale(0.85);
                     border-radius: 40px;
+                    cursor: none; /* Hide system cursor ONLY inside the canvas container */
                 }
                 .webgl-canvas {
                     display: block;

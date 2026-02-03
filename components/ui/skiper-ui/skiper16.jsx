@@ -302,7 +302,7 @@ const StickyCard_001 = ({
               {/* TOP SECTION: Title & Index */}
               <div className="flex-1 relative flex flex-col justify-center p-12">
                 {/* Giant Background Index */}
-                <div className="absolute top-6 left-8 text-[12vw] font-black text-white/3 leading-none select-none pointer-events-none font-urbanist tracking-tighter mix-blend-overlay">
+                <div className="absolute top-6 left-8 text-[12vw] font-black text-white/5 leading-none select-none pointer-events-none font-urbanist tracking-tighter mix-blend-overlay">
                   0{i}
                 </div>
 
@@ -343,7 +343,7 @@ const StickyCard_001 = ({
 
                 {/* Description Column */}
                 <div className="flex-1 p-10 border-r border-white/10 flex flex-col gap-4 bg-black/20 backdrop-blur-sm">
-                  <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/40">
+                  <span className="text-[11px] font-urbanist uppercase tracking-[0.2em] text-white/40">
                     Overview
                   </span>
                   <p className="text-base text-white leading-relaxed font-light max-w-xs">
@@ -353,14 +353,14 @@ const StickyCard_001 = ({
 
                 {/* Tags/Specs Column */}
                 <div className="flex-1 p-10 flex flex-col gap-5 bg-black/20 backdrop-blur-sm">
-                  <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/40">
+                  <span className="text-[11px] font-urbanist uppercase tracking-[0.2em] text-white/40">
                     Services
                   </span>
                   <div className="flex flex-col gap-3">
                     {tags?.slice(0, 4).map((tag, idx) => (
                       <div key={idx} className="flex items-center gap-3 group">
                         <span className="w-4 h-px bg-white/20" />
-                        <span className="text-xs text-white/60 font-mono uppercase tracking-wider">
+                        <span className="text-xs text-white font-urbanist uppercase tracking-wider">
                           {tag}
                         </span>
                       </div>
