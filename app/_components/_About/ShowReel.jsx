@@ -142,11 +142,11 @@ const ShowReel = () => {
   }
 
   return (
-    <section ref={containerRef} className=' w-full flex justify-center'>
-      <div className="relative w-full max-w-[1400px] h-[400px] flex items-center justify-center">
+    <section ref={containerRef} className='w-full flex justify-center'>
+      <div className="relative w-full max-w-[1400px] h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] flex items-center justify-center">
 
-        {/* Background Text */}
-        <div className="absolute inset-0 flex items-center justify-between px-108 pointer-events-none select-none z-0">
+        {/* Background Text - Hidden on mobile, visible from md up */}
+        <div className="absolute inset-0 hidden lg:flex items-center justify-between lg:px-32 xl:px-108 pointer-events-none select-none z-0">
           <motion.div
             initial={{ x: 0 }}
             whileInView={{ x: -50 }}
@@ -154,7 +154,7 @@ const ShowReel = () => {
             viewport={{ once: true }}
           >
             <motion.span
-              className="font-urbanist text-5xl md:text-7xl font-light text-[#3a3939] tracking-tight inline-block"
+              className="font-urbanist text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#3a3939] tracking-tight inline-block"
               animate={{ x: isHovered ? -25 : 0 }}
               transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
             >
@@ -169,7 +169,7 @@ const ShowReel = () => {
             viewport={{ once: true }}
           >
             <motion.span
-              className="font-urbanist text-5xl md:text-7xl font-light text-[#3a3939] tracking-tight inline-block"
+              className="font-urbanist text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#3a3939] tracking-tight inline-block"
               animate={{ x: isHovered ? 25 : 0 }}
               transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
             >
@@ -180,7 +180,7 @@ const ShowReel = () => {
 
         {/* Thumbnail Container */}
         <div
-          className="relative z-10 w-48 h-32 md:w-80 md:h-56 cursor-none group"
+          className="relative z-10 w-[85%] h-[180px] sm:w-56 sm:h-40 md:w-72 md:h-48 lg:w-80 lg:h-56 cursor-none group"
           onClick={handleOpen}
           onMouseEnter={handleMouseEnterThumbnail}
           onMouseLeave={handleMouseLeaveThumbnail}
@@ -196,9 +196,9 @@ const ShowReel = () => {
               playsInline
               loop
             />
-            <div className="absolute inset-0 flex items-center justify-between bg-black/10 group-hover:bg-transparent transition-colors px-6 pointer-events-none">
-              <p className='font-urbanist text-lg font-light text-white'>Agency.</p>
-              <p className='font-urbanist text-lg font-light text-white'>00:21</p>
+            <div className="absolute inset-0 flex items-center justify-between bg-black/10 group-hover:bg-transparent transition-colors px-3 sm:px-4 md:px-6 pointer-events-none">
+              <p className='font-urbanist text-sm sm:text-base md:text-lg font-light text-white'>Agency.</p>
+              <p className='font-urbanist text-sm sm:text-base md:text-lg font-light text-white'>00:21</p>
             </div>
           </div>
 
@@ -233,26 +233,26 @@ const ShowReel = () => {
 
               {/* Close Button (Top Right) */}
               <motion.button
-                className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black hover:bg-white/80 transition-all z-20 cursor-pointer"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center text-black hover:bg-white/80 transition-all z-20 cursor-pointer"
                 onClick={handleClose}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: 0.8, duration: 0.4 } }}
                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </motion.button>
 
               {/* Custom Play/Pause Button (Bottom Right) - Styled per reference with Smooth Width Animation */}
               <motion.button
                 layout
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="absolute bottom-[30px] right-[30px] z-20 bg-white text-black border-none rounded-[12px] px-[15px] py-[6px] text-[0.9rem] font-medium cursor-pointer flex items-center gap-2 hover:bg-[#f0f0f0] active:bg-[#e0e0e0] overflow-hidden whitespace-nowrap"
+                className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-[30px] md:right-[30px] z-20 bg-white text-black border-none rounded-[10px] sm:rounded-[12px] px-3 sm:px-[15px] py-1.5 sm:py-[6px] text-[0.8rem] sm:text-[0.9rem] font-medium cursor-pointer flex items-center gap-1.5 sm:gap-2 hover:bg-[#f0f0f0] active:bg-[#e0e0e0] overflow-hidden whitespace-nowrap"
                 onClick={togglePlay}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: 0.8, duration: 0.4 } }}
                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2">
                   {isPlaying ? (
                     <>
                       <svg width="10" height="12" viewBox="0 0 12 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -265,7 +265,7 @@ const ShowReel = () => {
                       <svg width="10" height="12" viewBox="0 0 12 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1.5 13.5V0.5L11.5 7L1.5 13.5Z" />
                       </svg>
-                      <span className="font-urbanist font-semibold ">Play</span>
+                      <span className="font-urbanist font-semibold">Play</span>
                     </>
                   )}
                 </div>
@@ -276,14 +276,14 @@ const ShowReel = () => {
         )}
       </AnimatePresence>
 
-      {/* Custom Cursor */}
+      {/* Custom Cursor - Hidden on touch devices via pointer-events-none */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-24 h-24 rounded-full pointer-events-none z-[9999] flex items-center justify-center bg-white"
+        className="fixed top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 rounded-full pointer-events-none z-[9999] hidden sm:flex items-center justify-center bg-white"
       >
         <span
           ref={cursorTextRef}
-          className="text-black text-xs font-medium tracking-wide uppercase font-urbanist"
+          className="text-black text-[10px] sm:text-xs font-medium tracking-wide uppercase font-urbanist"
         >
           View
         </span>

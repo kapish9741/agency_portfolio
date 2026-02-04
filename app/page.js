@@ -50,8 +50,8 @@ export default function Home() {
       {/* 🎬 TRANSITION SHELL */}
       <div
         id="main-content-wrapper"
-        className="relative w-full min-h-screen bg-black"
-      >
+        className="relative w-full min-h-screen bg-black">
+
         <AnimatePresence mode="wait">
           {isMenuOpen && <MenuPage />}
         </AnimatePresence>

@@ -12,7 +12,7 @@ const MenuButton = () => {
     const transition = { duration: 0.6, ease: [0.76, 0, 0.24, 1] };
 
     return (
-        <div className="flex items-center justify-center font-urbanist">
+        <div className="flex items-center justify-center font-urbanist scale-75 md:scale-90 xl:scale-100 origin-right">
             {/* Reduced dimensions while maintaining Akaru's proportions */}
             <motion.div
                 className={`TheNavigationBurger ${isMenuOpen ? "--isOpen" : "--isShow"}`}
