@@ -24,13 +24,13 @@ const Hero = () => {
       <div className='flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 w-full max-w-5xl'>
         <div className='flex items-center justify-center gap-1.5 sm:gap-2'>
           <AvatarGroup>
-            <Avatar className="border-2 border-white w-8 h-8 sm:w-10 sm:h-10">
+            <Avatar className="border-2 border-white w-6 h-6 sm:w-10 sm:h-10">
               <AvatarImage src="https://framerusercontent.com/images/G5E86VA7DStEga3pPtCu3nwW1qE.png?width=512&height=512" alt="@shadcn" />
             </Avatar>
-            <Avatar className="border-2 border-white w-8 h-8 sm:w-10 sm:h-10">
+            <Avatar className="border-2 border-white w-6 h-6 sm:w-10 sm:h-10">
               <AvatarImage src="https://github.com/maxleiter.png" alt="@maxleiter" />
             </Avatar>
-            <Avatar className="border-2 border-white w-8 h-8 sm:w-10 sm:h-10">
+            <Avatar className="border-2 border-white w-6 h-6 sm:w-10 sm:h-10">
               <AvatarImage
                 src="https://framerusercontent.com/images/I9yoNS4RgoWEeRpJDtgEIoLAd4Y.png?width=512&height=512"
                 alt="@evilrabbit"
@@ -42,8 +42,7 @@ const Hero = () => {
         </div>
 
         <h1
-          className='font-urbanist text-black text-[22px] sm:text-[28px] md:text-4xl lg:text-5xl xl:text-6xl max-w-[320px] sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl font-semibold text-center leading-[1.15] sm:leading-[1.1] tracking-tight relative z-10 px-1'
-        >
+          className='font-urbanist text-black text-[30px] sm:text-[28px] md:text-4xl lg:text-5xl xl:text-6xl max-w-[320px] sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl font-semibold text-center leading-[1.15] sm:leading-[1.1] tracking-tight relative z-10 px-1'>
           Effortless{' '}
           <motion.span
             initial={{ x: 4, y: 4 }}
@@ -64,7 +63,7 @@ const Hero = () => {
               className="w-10 h-7 sm:w-12 sm:h-9 md:w-16 md:h-11 lg:w-20 lg:h-14 xl:w-24 xl:h-17 object-cover rounded-[14px] sm:rounded-[18px] md:rounded-[22px] lg:rounded-[28px] xl:rounded-[34px] shadow-2xl"
             />
           </motion.span>{' '}
-          <span className="text-[#126cfd] font-dancing-script">Designs</span> <br className="hidden md:block" />
+          <span className="text-[#126cfd] font-dancing-script">Designs</span> <br />
           for{' '}
           <motion.span
             initial={{ x: 4, y: 4 }}
@@ -86,7 +85,7 @@ const Hero = () => {
               className="w-10 h-7 sm:w-12 sm:h-9 md:w-16 md:h-11 lg:w-20 lg:h-14 xl:w-24 xl:h-17 object-cover rounded-[14px] sm:rounded-[18px] md:rounded-[22px] lg:rounded-[28px] xl:rounded-[34px] shadow-2xl"
             />
           </motion.span>{' '}
-          ambitious <span className='text-[#126cfd] font-dancing-script'>Brands</span> <br className="hidden md:block" />
+          ambitious <span className='text-[#126cfd] font-dancing-script'>Brands</span> <br />
           <span>building digital </span>
           <span className='text-[#126cfd] font-dancing-script'>Products.</span>
 

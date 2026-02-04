@@ -188,14 +188,14 @@ const StickyCard_001 = ({
         onClick={() => i > 0 && window.open('https://cal.com/abhishek-patel-ujjhlo/quick-chat', '_blank')}
         className={`
           will-change-transform
-          relative flex h-[90vh] w-[95vw] origin-top overflow-hidden
-          rounded-[2rem]
+          relative flex flex-col xl:flex-row h-[85vh] sm:h-[88vh] xl:h-[90vh] w-[95vw] origin-top overflow-hidden
+          rounded-xl sm:rounded-2xl xl:rounded-[2rem]
           bg-[#141414]
           ${i > 0 ? "cursor-none" : ""}
         `}
       >
         {/* Inner hairline stroke → premium material definition */}
-        <div className="pointer-events-none absolute inset-0 rounded-[2rem] ring-1 ring-white/10 z-50" />
+        <div className="pointer-events-none absolute inset-0 rounded-xl sm:rounded-2xl xl:rounded-[2rem] ring-1 ring-white/10 z-50" />
 
         {/* Subtle grain → cinematic texture (CSS-only) */}
         <div
@@ -227,7 +227,7 @@ const StickyCard_001 = ({
             {/* Section opener typography */}
             <motion.div
               style={{ opacity: i === 0 ? introOpacity : 1, y: i === 0 ? introY : 0 }}
-              className="relative z-10 max-w-5xl px-12 text-center justify-center"
+              className="relative z-10 max-w-5xl px-4 sm:px-8 xl:px-12 text-center justify-center"
             >
               <motion.div
                 initial="hidden"
@@ -253,7 +253,7 @@ const StickyCard_001 = ({
                       }
                     }}
                     className="
-                      text-[clamp(4rem,10vw,9rem)]
+                      text-[clamp(2.5rem,10vw,9rem)]
                       font-medium
                       tracking-[-0.04em]
                       leading-[0.95]
@@ -273,7 +273,7 @@ const StickyCard_001 = ({
                       transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
                     }
                   }}
-                  className="mt-6 text-sm uppercase tracking-[0.3em] text-white/50"
+                  className="mt-4 sm:mt-6 text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/50"
                 >
                   What we do
                 </motion.p>
@@ -283,7 +283,7 @@ const StickyCard_001 = ({
         ) : (
           <>
             {/* Background Video (Left Side) */}
-            <div className="absolute top-0 left-0 w-1/2 h-full z-0 overflow-hidden">
+            <div className="hidden xl:block absolute top-0 left-0 w-full xl:w-1/2 h-1/2 xl:h-full z-0 overflow-hidden">
               <motion.video
                 style={{ scale: imageScale }}
                 src="/services/mesh.mp4"
@@ -297,12 +297,12 @@ const StickyCard_001 = ({
             </div>
 
             {/* ================= LEFT: CONTENT (Redesigned) ================= */}
-            <div className="relative z-10 w-1/2 h-full flex flex-col">
+            <div className="relative z-10 w-full xl:w-1/2 h-full flex flex-col">
 
               {/* TOP SECTION: Title & Index */}
-              <div className="flex-1 relative flex flex-col justify-center p-12">
+              <div className="flex-1 relative flex flex-col justify-center p-4 sm:p-6 md:p-8 xl:p-12">
                 {/* Giant Background Index */}
-                <div className="absolute top-6 left-8 text-[12vw] font-black text-white/5 leading-none select-none pointer-events-none font-urbanist tracking-tighter mix-blend-overlay">
+                <div className="absolute top-4 left-4 sm:top-6 sm:left-8 text-[20vw] sm:text-[15vw] xl:text-[12vw] font-black text-white/5 leading-none select-none pointer-events-none font-urbanist tracking-tighter mix-blend-overlay">
                   0{i}
                 </div>
 
@@ -330,7 +330,7 @@ const StickyCard_001 = ({
                           transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
                         }
                       }}
-                      className="text-[4.5vw] font-medium leading-[0.9] tracking-tighter text-white"
+                      className="text-[8vw] sm:text-[6vw] lg:text-[5vw] xl:text-[4.5vw] font-medium leading-[0.9] tracking-tighter text-white"
                     >
                       {title}
                     </motion.h2>
@@ -339,21 +339,21 @@ const StickyCard_001 = ({
               </div>
 
               {/* BOTTOM SECTION: Splits */}
-              <div className="h-[40%] flex w-full">
+              <div className="h-auto xl:h-[40%] flex flex-col sm:flex-row w-full">
 
                 {/* Description Column */}
-                <div className="flex-1 p-10 border-r border-white/10 flex flex-col gap-4 bg-black/20 backdrop-blur-sm">
-                  <span className="text-[11px] font-urbanist uppercase tracking-[0.2em] text-white/40">
+                <div className="flex-1 p-4 sm:p-6 xl:p-10 border-b sm:border-b-0 sm:border-r border-white/10 flex flex-col gap-2 sm:gap-4 bg-black/20 backdrop-blur-sm">
+                  <span className="text-[10px] sm:text-[11px] font-urbanist uppercase tracking-[0.2em] text-white/40">
                     Overview
                   </span>
-                  <p className="text-base text-white leading-relaxed font-light max-w-xs">
+                  <p className="text-sm sm:text-base text-white leading-relaxed font-light max-w-xs">
                     {description}
                   </p>
                 </div>
 
                 {/* Tags/Specs Column */}
-                <div className="flex-1 p-10 flex flex-col gap-5 bg-black/20 backdrop-blur-sm">
-                  <span className="text-[11px] font-urbanist uppercase tracking-[0.2em] text-white/40">
+                <div className="flex-1 p-4 sm:p-6 xl:p-10 flex flex-col gap-3 sm:gap-5 bg-black/20 backdrop-blur-sm">
+                  <span className="text-[10px] sm:text-[11px] font-urbanist uppercase tracking-[0.2em] text-white/40">
                     Services
                   </span>
                   <div className="flex flex-col gap-3">
@@ -372,7 +372,7 @@ const StickyCard_001 = ({
             </div>
 
             {/* ================= RIGHT: IMAGE ================= */}
-            <div className="relative w-1/2 h-full overflow-hidden">
+            <div className="relative w-full xl:w-1/2 h-1/2 xl:h-full overflow-hidden order-first xl:order-last">
               {/* Contrast mask → ensures text dominance */}
               <div
                 className="

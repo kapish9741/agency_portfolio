@@ -118,16 +118,15 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
 
   return (
     <div
-      className="flex-1 relative overflow-hidden text-center"
+      className="flex-1 relative overflow-hidden text-center h-[12vh] sm:h-[11vh] xl:h-[10vh]"
       ref={itemRef}
       style={{
-        height: '10vh',
         borderTop: `1px solid ${borderColor}`,
         borderBottom: isLast ? `1px solid ${borderColor}` : 'none'
       }}
     >
       <a
-        className="flex items-center justify-center h-full relative cursor-pointer font-urbanist uppercase no-underline font-semibold text-[12vh] leading-none"
+        className="flex items-center justify-center h-full relative cursor-pointer font-urbanist uppercase no-underline font-semibold text-[6vh] sm:text-[8vh] md:text-[10vh] xl:text-[12vh] leading-none"
         href={link}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -146,7 +145,7 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
         <div className="h-full w-fit flex" ref={marqueeInnerRef}>
           {[...Array(repetitions)].map((_, idx) => (
             <div className="marquee-part flex items-center shrink-0" key={idx} style={{ color: marqueeTextColor }}>
-              <span className="whitespace-nowrap font-medium font-dancing-script text-[12vh] leading-none px-[1vw] mt-3">{text}</span>
+              <span className="whitespace-nowrap font-medium font-dancing-script text-[6vh] sm:text-[8vh] md:text-[10vh] xl:text-[12vh] leading-none px-[1vw] mt-3">{text}</span>
               <div
                 className="w-[200px] h-[7vh] my-auto mx-[2vw] rounded-[50px] bg-cover bg-center"
                 style={{ backgroundImage: `url(${image})` }}

@@ -40,7 +40,23 @@ export default function Home() {
   }, [isLoading, isMenuOpen]);
 
   React.useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
+    if (isMenuOpen) {
+      // Lock scroll on all devices including mobile
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
+    }
   }, [isMenuOpen]);
 
   return (
@@ -53,7 +69,7 @@ export default function Home() {
         className="relative w-full min-h-screen bg-black">
 
         <AnimatePresence mode="wait">
-          {isMenuOpen && <MenuPage />}
+          {isMenuOpen && <MenuPage key="menu-page" />}
         </AnimatePresence>
 
         <div
