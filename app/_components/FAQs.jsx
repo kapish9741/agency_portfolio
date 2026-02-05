@@ -34,15 +34,15 @@ const FAQs = () => {
   const [col2Open, setCol2Open] = React.useState(null);
 
   return (
-    <section className='flex items-center justify-center flex-col mb-25 px-4 mt-40'>
-      <div className='flex flex-col justify-center relative z-0 gap-4 mb-16'>
+    <section className='flex items-center justify-center flex-col mb-12 sm:mb-16 md:mb-20 lg:mb-25 px-4 sm:px-6 md:px-8 mt-20 sm:mt-28 md:mt-32 lg:mt-40'>
+      <div className='flex flex-col justify-center relative z-0 gap-2 sm:gap-3 md:gap-4 mb-8 sm:mb-10 md:mb-12 lg:mb-16'>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className='font-light font-urbanist text-[#3a86ff] text-3xl'>
-          ( <span className='font-dancing-script text-3xl'>FAQs</span> )
+          className='font-light font-urbanist text-[#3a86ff] text-xl sm:text-2xl md:text-3xl'>
+          ( <span className='font-dancing-script text-xl sm:text-2xl md:text-3xl'>FAQs</span> )
         </motion.p>
 
         <motion.h1
@@ -50,15 +50,15 @@ const FAQs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="text-6xl font-semibold tracking-tight leading-none font-urbanist text-center">
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-none font-urbanist text-center">
           <span className="text-white">
             Your Questions Answered
           </span>
         </motion.h1>
       </div>
 
-      <div className="w-full max-w-6xl flex flex-col md:flex-row gap-4 items-start">
-        <div className="flex flex-col gap-4 w-full md:w-1/2">
+      <div className="w-full max-w-6xl flex flex-col md:flex-row gap-3 sm:gap-4 items-start">
+        <div className="flex flex-col gap-3 sm:gap-4 w-full md:w-1/2">
           {faqs.slice(0, Math.ceil(faqs.length / 2)).map((faq, index) => (
             <FAQsAccordion
               key={index}
@@ -69,7 +69,7 @@ const FAQs = () => {
             />
           ))}
         </div>
-        <div className="flex flex-col gap-4 w-full md:w-1/2">
+        <div className="flex flex-col gap-3 sm:gap-4 w-full md:w-1/2">
           {faqs.slice(Math.ceil(faqs.length / 2)).map((faq, index) => (
             <FAQsAccordion
               key={index + Math.ceil(faqs.length / 2)}

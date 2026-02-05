@@ -75,11 +75,7 @@ const PricingTable = () => {
                             {/* Top glass gradient */}
                             <div
                                 aria-hidden="true"
-                                className="absolute inset-x-0 top-0 h-48 rounded-[inherit]"
-                                style={{
-                                    background:
-                                        'linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 40%, rgba(0,0,0,0) 100%)',
-                                }}
+                                className="absolute inset-x-0 top-0 h-48 rounded-[inherit] bg-[#0B0B0B]"
                             />
 
                             {/* Label & Icon */}
@@ -97,7 +93,7 @@ const PricingTable = () => {
                             </div>
 
                             {/* Action Button */}
-                            <Button className="w-full relative z-10 rounded-lg h-11 px-4 py-2 font-semibold text-white cursor-pointer text-lg bg-gradient-to-b from-blue-600 to-blue-700 shadow-[0_10px_25px_rgba(59,134,255,0.3)] group overflow-hidden">
+                            <Button className="cursor-pointer w-full relative z-10 rounded-lg h-11 px-4 py-2 font-semibold text-white text-lg bg-gradient-to-b from-[#3a86ff] to-[#3a86ff] shadow-[0_10px_25px_rgba(59,134,255,0.3)] group overflow-hidden">
                                 <div className="relative overflow-hidden h-7 flex flex-col items-center justify-start">
                                     <span className="group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] h-full flex items-center">
                                         Book a Call
