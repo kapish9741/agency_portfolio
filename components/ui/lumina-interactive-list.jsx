@@ -378,7 +378,8 @@ export function GlassCarousel() {
                 .slide-text-wrapper {
                     position: relative;
                     height: 80px;
-                    width: 500px;
+                    width: 100%;
+                    max-width: 500px;
                 }
                 .slide-text-item {
                     position: absolute;
