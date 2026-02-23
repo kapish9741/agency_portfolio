@@ -13,7 +13,7 @@ const demoItems = [
     { link: '#about', text: 'About', image: 'https://picsum.photos/600/400?random=2' },
     { link: '#work', text: 'Recent Work', image: 'https://picsum.photos/600/400?random=3' },
     { link: '#services', text: 'Services', image: 'https://picsum.photos/600/400?random=4' },
-    { link: 'https://cal.com/abhishek-patel-ujjhlo/quick-chat', text: 'Contact', image: 'https://picsum.photos/600/400?random=5', target: '_blank' }
+    { link: 'https://cal.com/websual.agency/intro-call', text: 'Contact', image: 'https://picsum.photos/600/400?random=5', target: '_blank' }
 ];
 
 
@@ -66,8 +66,8 @@ const MenuPage = () => {
 
 
             <div className='absolute bottom-6 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:bottom-8 sm:right-8 xl:bottom-10 xl:right-10 flex gap-6 sm:gap-8 xl:gap-10 text-white font-urbanist text-base sm:text-lg xl:text-xl'>
-                <Link000 href="" className="hover:text-[#3a86ff] transition-colors">Instagram</Link000>
-                <Link000 href="" className="hover:text-[#3a86ff] transition-colors">LinkedIn</Link000>
+                <Link000 href="https://www.instagram.com/websual.agency" target="_blank" rel="noopener noreferrer" className="hover:text-[#3a86ff] transition-colors">Instagram</Link000>
+                <Link000 href="" target="_blank" rel="noopener noreferrer" className="hover:text-[#3a86ff] transition-colors">LinkedIn</Link000>
             </div>
         </motion.div>
 

@@ -15,11 +15,9 @@ export function GlassCarousel() {
     const canvasRef = useRef(null);
 
     const slides = [
-        { title: "Ethereal Glow", description: "Radiant Light", media: "/projects/1.webp", link: "https://google.com" },
-        { title: "Rose Mirage", description: "Desert Dreams", media: "/projects/2.webp", link: "https://awwwards.com" },
-        { title: "Velvet Mystique", description: "Deep Embrace", media: "/projects/3.webp", link: "https://threejs.org" },
-        { title: "Golden Hour", description: "Fleeting Gold", media: "/projects/4.webp", link: "https://gsap.com" },
-        { title: "Midnight Dreams", description: "Imagination Flight", media: "/projects/5.webp", link: "https://react.dev" },
+        { title: "Cally", description: "Cally is a meeting scheduler platform similar to Cal.com, designed to simplify appointment booking and scheduling.", media: "/projects/Cally.jpg", link: "https://getcally.vercel.app" },
+        { title: "Quantica", description: "Quantica is a esports fest website featuring all event details, individual game leaderboards, and a complete admin dashboard. The platform handled approximately 25K views during the event.", media: "/projects/Quantica.jpg", link: "https://www.quantica.fun" },
+        { title: "Haven", description: "Haven is a modern dating app specifically built for college students. We delivered full-stack development, branding, graphic design, and social media management. Within one month, the brand achieved 20K+ views on Instagram.", media: "/projects/Haven.jpg", link: "https://haven.singles" },
     ];
 
     const [activeSegment, setActiveSegment] = useState(0);
@@ -370,6 +368,8 @@ export function GlassCarousel() {
                     position: absolute;
                     top: 60px; 
                     left: 5vw;
+                    width: 600px;
+                    max-width: 90vw;
                     color: white;
                     z-index: 12;
                     pointer-events: none;
@@ -379,7 +379,7 @@ export function GlassCarousel() {
                     position: relative;
                     height: 80px;
                     width: 100%;
-                    max-width: 500px;
+
                 }
                 .slide-text-item {
                     position: absolute;
@@ -399,6 +399,7 @@ export function GlassCarousel() {
                     line-height: 1;
                     margin: 0;
                     letter-spacing: -1px;
+                    white-space: nowrap;
                     text-shadow: 0 4px 20px rgba(0,0,0,0.3);
                 }
                 .slide-desc {
@@ -406,7 +407,7 @@ export function GlassCarousel() {
                     opacity: 0.8;
                     letter-spacing: 1px;
                     margin-top: 0.5rem;
-                    text-transform: uppercase;
+                    max-width: 600px;
                 }
 
                 .slider-timeline {

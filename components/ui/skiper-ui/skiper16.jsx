@@ -185,7 +185,7 @@ const StickyCard_001 = ({
         style={{ scale }}
         onMouseEnter={() => i > 0 && onCursorEnter()}
         onMouseLeave={() => onCursorLeave()}
-        onClick={() => i > 0 && window.open('https://cal.com/abhishek-patel-ujjhlo/quick-chat', '_blank')}
+        onClick={() => i > 0 && window.open('https://cal.com/websual.agency/intro-call', '_blank')}
         className={`
           will-change-transform
           relative flex flex-col xl:flex-row h-[85vh] sm:h-[88vh] xl:h-[90vh] w-[95vw] origin-top overflow-hidden

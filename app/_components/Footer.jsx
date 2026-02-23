@@ -52,11 +52,11 @@ const Footer = () => {
                     <div className='absolute bottom-6 sm:bottom-8 md:bottom-10 left-0 w-full px-4 sm:px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-5 md:gap-6 text-sm sm:text-base text-white/60 font-medium font-urbanist'>
 
                         <Link href="mailto:hello@agency.design" className='flex items-center gap-2 hover:text-white transition-colors cursor-pointer z-10'>
-                            <span>hello@agency.design</span>
+                            <span>info@websual.agency</span>
                         </Link>
                         <div className='flex gap-4 sm:gap-6 md:gap-8 z-10'>
-                            <Link000 href="" className="hover:text-white transition-colors cursor-pointer">Instagram</Link000>
-                            <Link000 href="" className="hover:text-white transition-colors cursor-pointer">LinkedIn</Link000>
+                            <Link000 href="https://www.instagram.com/websual.agency" target="_blank" rel="noopener noreferrer" className="hover:text-[#3a86ff] transition-colors">Instagram</Link000>
+                            <Link000 href="" target="_blank" rel="noopener noreferrer" className="hover:text-[#3a86ff] transition-colors">LinkedIn</Link000>
                         </div>
                     </div>
                 </div>

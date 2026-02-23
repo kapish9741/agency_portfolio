@@ -1,9 +1,10 @@
 'use client'
 import React from 'react'
-import { Check, Users, Zap, Shield, CircleCheck, TrendingUp, Globe } from 'lucide-react'
+import { Users, CircleCheck, TrendingUp, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { GlowingEffect } from '@/components/ui/glowing-effect'
+import BookingButton from './BookingButton'
 
 const plans = [
     {
@@ -34,10 +35,10 @@ const plans = [
         recommended: true,
         description: "What's included",
         features: [
-            'All in starter pack',
+            'All from Essential pack',
             '3-5 pages',
             'Custom modern ui',
-            'optimization',
+            'Optimization',
             '2 motion graphic reels',
             '10 posts'
         ],
@@ -73,7 +74,7 @@ const PricingTable = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6, delay: index * 0.2, ease: "easeOut" }}
-                        className={`relative w-full rounded-2xl p-2 shadow-xl border ${plan.recommended ? 'border-[#3a86ff]/50' : 'border-white/10'} bg-[#000000]`}>
+                        className="relative w-full rounded-2xl p-2 shadow-xl border border-white/10 bg-[#000000]">
                         <GlowingEffect
                             spread={40}
                             glow={true}
@@ -117,17 +118,10 @@ const PricingTable = () => {
                                 </div>
                             </div>
 
-                            {/* Action Button */}
-                            <Button className="cursor-pointer w-full relative z-10 rounded-lg h-10 sm:h-11 px-3 sm:px-4 py-2 font-semibold text-white text-base sm:text-lg bg-gradient-to-b from-[#3a86ff] to-[#3a86ff] shadow-[0_10px_25px_rgba(59,134,255,0.3)] group overflow-hidden">
-                                <div className="relative overflow-hidden h-6 sm:h-7 flex flex-col items-center justify-start">
-                                    <span className="group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] h-full flex items-center">
-                                        Book a Call
-                                    </span>
-                                    <span className="absolute top-full group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] h-full flex items-center">
-                                        Book a Call
-                                    </span>
-                                </div>
-                            </Button>
+
+                            <div>
+                                <BookingButton />
+                            </div>
                         </div>
 
                         {/* Features List */}
