@@ -1,5 +1,6 @@
 import { Urbanist, Dancing_Script } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const getUrbanist = Urbanist({
   variable: "--font-urbanist",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${getUrbanist.variable} ${getDancingScript.variable} antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
