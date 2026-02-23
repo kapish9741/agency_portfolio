@@ -158,7 +158,7 @@ const Loader = () => {
       <div className={styles.innerContainer}>
         <div className={styles.fullNameContainer}>
           <h2 ref={fullNameRef} className={styles.fullName}>
-            Pixlyne Studios
+            Websual
           </h2>
         </div>
 

@@ -8,53 +8,56 @@ import { GlowingEffect } from '@/components/ui/glowing-effect'
 const plans = [
     {
         name: 'Essential',
-        price: '1500',
+        price: '499',
+        currency: '$',
         period: '',
         originalPrice: '',
         description: "What's included",
-        features: ['All Pro Plan Features',
-            'Dedicated Account Manager',
-            'Custom Integrations',
-            'Advanced Security Features',
-            'Team Collaboration Tools',
-            'Onboarding and Training',
-            'Unlimited Users',
-            'API Access with Higher Limits',
-            'Advanced Audit Logs'],
+        features: [
+            '1-3 page',
+            'SEO',
+            'Mobile responsive',
+            'Client dashboard',
+            '2 months support',
+            'Logo + branding',
+            '3 revisions',
+            'Delivery 1-2 weeks',
+            'Theme'
+        ],
         icon: Users,
     },
     {
         name: 'Growth',
-        price: '1900',
-        period: '/month',
-        originalPrice: '$29',
+        price: '799',
+        currency: '$',
+        period: '',
+        recommended: true,
         description: "What's included",
-        features: ['All Pro Plan Features',
-            'Dedicated Account Manager',
-            'Custom Integrations',
-            'Advanced Security Features',
-            'Team Collaboration Tools',
-            'Onboarding and Training',
-            'Unlimited Users',
-            'API Access with Higher Limits',
-            'Advanced Audit Logs'],
+        features: [
+            'All in starter pack',
+            '3-5 pages',
+            'Custom modern ui',
+            'optimization',
+            '2 motion graphic reels',
+            '10 posts'
+        ],
         icon: TrendingUp,
     },
     {
         name: 'Scale',
-        price: '2700',
+        price: 'Custom Solutions',
+        currency: '',
         period: '',
         originalPrice: '',
         description: "What's included",
-        features: ['All Pro Plan Features',
-            'Dedicated Account Manager',
-            'Custom Integrations',
-            'Advanced Security Features',
-            'Team Collaboration Tools',
-            'Onboarding and Training',
-            'Unlimited Users',
-            'API Access with Higher Limits',
-            'Advanced Audit Logs'],
+        features: [
+            'Custom Scope',
+            'Dedicated team',
+            'Advanced SEO',
+            'Unlimited revisions',
+            'Priority support',
+            'Custom animations'
+        ],
         icon: Globe,
     },
 ]
@@ -70,7 +73,7 @@ const PricingTable = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6, delay: index * 0.2, ease: "easeOut" }}
-                        className="relative w-full rounded-2xl p-2 shadow-xl border border-white/10 bg-[#000000]">
+                        className={`relative w-full rounded-2xl p-2 shadow-xl border ${plan.recommended ? 'border-[#3a86ff]/50' : 'border-white/10'} bg-[#000000]`}>
                         <GlowingEffect
                             spread={40}
                             glow={true}
@@ -92,12 +95,26 @@ const PricingTable = () => {
                                     <plan.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                                     <span>{plan.name}</span>
                                 </div>
+                                {plan.recommended && (
+                                    <span className="bg-[#3a86ff]/20 text-[#3a86ff] text-xs font-bold px-2.5 py-1 rounded-full border border-[#3a86ff]/30 shadow-[0_0_10px_rgba(59,134,255,0.2)]">
+                                        Recommended
+                                    </span>
+                                )}
                             </div>
 
                             {/* Pricing */}
-                            <div className="mb-4 sm:mb-6 md:mb-8 flex items-baseline gap-1 sm:gap-2 relative z-10">
-                                <span className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">$</span>
-                                <span className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">{plan.price}</span>
+                            <div className="mb-4 sm:mb-6 md:mb-8 flex flex-col relative z-10">
+                                {plan.originalPrice && (
+                                    <span className="text-gray-500 line-through text-lg sm:text-xl font-medium mb-1">
+                                        {plan.originalPrice}
+                                    </span>
+                                )}
+                                <div className="flex items-baseline gap-1 sm:gap-2">
+                                    {plan.currency && <span className="text-xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">{plan.currency}</span>}
+                                    <span className={`font-extrabold tracking-tight text-white ${plan.currency ? 'text-3xl sm:text-4xl md:text-5xl' : 'text-4xl sm:text-4xl md:text-4xl'}`}>
+                                        {plan.price}
+                                    </span>
+                                </div>
                             </div>
 
                             {/* Action Button */}
