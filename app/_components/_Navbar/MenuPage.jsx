@@ -9,11 +9,11 @@ import { Link000 } from '@/components/ui/skiper-ui/skiper40';
 
 
 const demoItems = [
-    { link: '#home', text: 'Home', image: 'https://picsum.photos/600/400?random=1' },
-    { link: '#about', text: 'About', image: 'https://picsum.photos/600/400?random=2' },
-    { link: '#work', text: 'Recent Work', image: 'https://picsum.photos/600/400?random=3' },
-    { link: '#services', text: 'Services', image: 'https://picsum.photos/600/400?random=4' },
-    { link: 'https://cal.com/websual.agency/intro-call', text: 'Contact', image: 'https://picsum.photos/600/400?random=5', target: '_blank' }
+    { link: '#home', text: 'Home', image: '/Hero/Menu/Home.png' },
+    { link: '#about', text: 'About', image: '/Hero/Menu/About.png' },
+    { link: '#work', text: 'Recent Work', image: '/Hero/Menu/Work.png' },
+    { link: '#services', text: 'Services', image: '/Hero/Menu/Services.png' },
+    { link: 'https://cal.com/websual.agency/intro-call', text: 'Contact', image: '/Hero/Menu/Contact.png', target: '_blank' }
 ];
 
 

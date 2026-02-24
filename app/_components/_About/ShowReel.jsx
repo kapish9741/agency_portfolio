@@ -197,7 +197,7 @@ const ShowReel = () => {
               loop
             />
             <div className="absolute inset-0 flex items-center justify-between bg-black/10 group-hover:bg-transparent transition-colors px-3 sm:px-4 md:px-6 pointer-events-none">
-              <p className='font-urbanist text-sm sm:text-base md:text-lg font-light text-white'>Agency.</p>
+              <p className='font-urbanist text-sm sm:text-base md:text-lg font-light text-white'>Websual.</p>
               <p className='font-urbanist text-sm sm:text-base md:text-lg font-light text-white'>00:21</p>
             </div>
           </div>

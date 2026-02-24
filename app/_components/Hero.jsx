@@ -55,7 +55,7 @@ const Hero = () => {
             }}
             className="inline-flex items-center align-middle mx-0.5 sm:mx-1 md:mx-2">
             <Image
-              src="/Hero/1.jpeg"
+              src="/Hero/P.png"
               alt="Design"
               width={100}
               height={50}
@@ -77,7 +77,7 @@ const Hero = () => {
             className="inline-flex items-center align-middle mx-0.5 sm:mx-1 md:mx-2"
           >
             <Image
-              src="/Hero/2.jpg"
+              src="/Hero/Mock.png"
               alt="Ambitious"
               width={100}
               height={50}

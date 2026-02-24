@@ -15,32 +15,36 @@ const plans = [
         originalPrice: '',
         description: "What's included",
         features: [
-            '1-3 page',
-            'SEO',
-            'Mobile responsive',
-            'Client dashboard',
-            '2 months support',
-            'Logo + branding',
-            '3 revisions',
-            'Delivery 1-2 weeks',
-            'Theme'
+            'Up to 3 custom-designed pages',
+            'Mobile-first responsive design',
+            'Basic on-page SEO setup',
+            'Performance optimization (fast loading)',
+            'Analytics integration (Google Analytics)',
+            'Basic branding kit (logo + color palette)',
+            'Client dashboard access',
+            '2 strategic revisions',
+            '2 months post-launch support',
+            'Delivery within 1-2 weeks'
         ],
         icon: Users,
     },
     {
         name: 'Growth',
-        price: '799',
+        price: '899',
         currency: '$',
         period: '',
         recommended: true,
         description: "What's included",
         features: [
-            'All from Essential pack',
-            '3-5 pages',
-            'Custom modern ui',
-            'Optimization',
-            '2 motion graphic reels',
-            '10 posts'
+            'Everything in Essential',
+            'Up to 5 fully custom pages',
+            'Premium modern UI/UX design',
+            'Advanced SEO optimization',
+            'Speed & conversion optimization',
+            'CMS or dynamic content setup',
+            '2 high-quality motion graphic reels',
+            '10 branded social media posts',
+            'Priority delivery timeline'
         ],
         icon: TrendingUp,
     },
@@ -52,12 +56,16 @@ const plans = [
         originalPrice: '',
         description: "What's included",
         features: [
-            'Custom Scope',
-            'Dedicated team',
-            'Advanced SEO',
+            'Fully custom website or web app',
+            'Unlimited pages & features (scoped)',
+            'Full-stack development (frontend + backend)',
+            'Advanced SEO & technical SEO',
+            'Custom animations & interactive UI',
+            'Dedicated design & development team',
+            'Admin dashboard / CMS system',
+            'API integrations (payment, CRM, etc.)',
             'Unlimited revisions',
-            'Priority support',
-            'Custom animations'
+            'Priority support & long-term maintenance'
         ],
         icon: Globe,
     },
@@ -83,7 +91,7 @@ const PricingTable = () => {
                             inactiveZone={0.01}
                         />
                         {/* Card Header Section */}
-                        <div className="bg-[#0B0B0B] relative mb-3 sm:mb-4 rounded-xl border border-white/5 p-4 sm:p-6 md:p-8 overflow-hidden">
+                        <div className="bg-[#0B0B0B] relative mb-3 sm:mb-4 rounded-xl border border-white/5 p-4 sm:p-6 md:p-8 overflow-hidden flex flex-col">
                             {/* Top glass gradient */}
                             <div
                                 aria-hidden="true"
@@ -104,7 +112,7 @@ const PricingTable = () => {
                             </div>
 
                             {/* Pricing */}
-                            <div className="mb-4 sm:mb-6 md:mb-8 flex flex-col relative z-10">
+                            <div className="mb-4 sm:mb-6 md:mb-8 flex flex-col relative z-10 min-h-[60px] sm:min-h-[70px] md:min-h-[80px] justify-center">
                                 {plan.originalPrice && (
                                     <span className="text-gray-500 line-through text-lg sm:text-xl font-medium mb-1">
                                         {plan.originalPrice}
@@ -118,8 +126,7 @@ const PricingTable = () => {
                                 </div>
                             </div>
 
-
-                            <div>
+                            <div className="mt-auto">
                                 <BookingButton />
                             </div>
                         </div>
