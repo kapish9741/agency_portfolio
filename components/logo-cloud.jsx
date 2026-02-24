@@ -8,68 +8,68 @@ export default function LogoCloud() {
                     <InfiniteSlider speedOnHover={20} speed={40} gap={112}>
                         <div className="flex">
                             <img
-                                className="mx-auto h-5 w-fit dark:invert"
-                                src="https://html.tailus.io/blocks/customers/nvidia.svg"
+                                className="mx-auto h-20 w-fit dark:invert"
+                                src="/LogoCloud/1.png"
                                 alt="Nvidia Logo"
-                                height="20"
+                                height="30"
                                 width="auto" />
                         </div>
 
                         <div className="flex">
                             <img
-                                className="mx-auto h-4 w-fit dark:invert"
-                                src="https://html.tailus.io/blocks/customers/column.svg"
-                                alt="Column Logo"
-                                height="16"
+                                className="mx-auto h-20 w-fit dark:invert"
+                                src="/LogoCloud/2.png"
+                                alt="Biowaste Solutions Logo"
+                                height="30"
                                 width="auto" />
                         </div>
                         <div className="flex">
                             <img
-                                className="mx-auto h-4 w-fit dark:invert"
-                                src="https://html.tailus.io/blocks/customers/github.svg"
-                                alt="GitHub Logo"
-                                height="16"
+                                className="mx-auto h-20 w-fit dark:invert"
+                                src="/LogoCloud/3.png"
+                                alt="Sprouters Logo"
+                                height="30"
                                 width="auto" />
                         </div>
                         <div className="flex">
                             <img
-                                className="mx-auto h-5 w-fit dark:invert"
-                                src="https://html.tailus.io/blocks/customers/nike.svg"
-                                alt="Nike Logo"
-                                height="20"
-                                width="auto" />
-                        </div>
-                        <div className="flex">
-                            <img
-                                className="mx-auto h-5 w-fit dark:invert"
-                                src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg"
-                                alt="Lemon Squeezy Logo"
-                                height="20"
-                                width="auto" />
-                        </div>
-                        <div className="flex">
-                            <img
-                                className="mx-auto h-4 w-fit dark:invert"
-                                src="https://html.tailus.io/blocks/customers/laravel.svg"
-                                alt="Laravel Logo"
-                                height="16"
-                                width="auto" />
-                        </div>
-                        <div className="flex">
-                            <img
-                                className="mx-auto h-7 w-fit dark:invert"
-                                src="https://html.tailus.io/blocks/customers/lilly.svg"
-                                alt="Lilly Logo"
-                                height="28"
+                                className="mx-auto h-20 w-fit dark:invert"
+                                src="/LogoCloud/1.png"
+                                alt="Nvidia Logo"
+                                height="30"
                                 width="auto" />
                         </div>
 
                         <div className="flex">
                             <img
-                                className="mx-auto h-6 w-fit dark:invert"
-                                src="https://html.tailus.io/blocks/customers/openai.svg"
-                                alt="OpenAI Logo"
-                                height="24"
+                                className="mx-auto h-20 w-fit dark:invert"
+                                src="/LogoCloud/2.png"
+                                alt="Biowaste Solutions Logo"
+                                height="30"
+                                width="auto" />
+                        </div>
+                        <div className="flex">
+                            <img
+                                className="mx-auto h-20 w-fit dark:invert"
+                                src="/LogoCloud/3.png"
+                                alt="Sprouters Logo"
+                                height="30"
+                                width="auto" />
+                        </div>
+                        <div className="flex">
+                            <img
+                                className="mx-auto h-20 w-fit dark:invert"
+                                src="/LogoCloud/1.png"
+                                alt="Sprouters Logo"
+                                height="30"
+                                width="auto" />
+                        </div>
+                        <div className="flex">
+                             <img
+                                className="mx-auto h-20 w-fit dark:invert"
+                                src="/LogoCloud/2.png"
+                                alt="Sprouters Logo"
+                                height="30"
                                 width="auto" />
                         </div>
                     </InfiniteSlider>
