@@ -1,6 +1,7 @@
 import { Urbanist, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 
 const getUrbanist = Urbanist({
   variable: "--font-urbanist",
@@ -83,6 +84,19 @@ export default function RootLayout({ children }) {
         className={`${getUrbanist.variable} ${getDancingScript.variable} antialiased`}>
         {children}
         <Analytics />
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-8WGLWV5NZD"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-8WGLWV5NZD');
+          `}
+        </Script>
       </body>
     </html>
   );
