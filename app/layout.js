@@ -20,6 +20,15 @@ export const metadata = {
     template: "%s | Websual"
   },
 
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+
   description:
     "Websual is a digital product design and web development agency helping startups and businesses build scalable, high-converting websites and digital experiences. Branding, UX/UI, and development aligned into one seamless process.",
 
