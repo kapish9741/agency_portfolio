@@ -6,6 +6,7 @@ import { useRef, useEffect, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@/components/ui/avatar'
 import { FlowButton } from '@/components/ui/flow-button'
 import LogoCloud from '@/components/logo-cloud'
+import BookACall from './_Hero/BookACall'
 
 
 const Hero = () => {
@@ -95,7 +96,11 @@ const Hero = () => {
           From MVPs to rebrands, we make it easy for startups to launch, grow, and scale with clean, conversion-focused designs that are fast, clear, and scalable.
         </h3>
 
-        <FlowButton text="View Plans" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} />
+        {/* <FlowButton text="View Plans" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} /> */}
+       
+        <div>
+          <BookACall />
+        </div>
       </div>
 
       {/* Video Container that expands to full screen */}

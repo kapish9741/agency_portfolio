@@ -94,9 +94,9 @@ export default function Home() {
               <div id="services">
                 <Services />
               </div>
-              <div id="pricing">
+              {/* <div id="pricing">
                 <Pricing />
-              </div>
+              </div> */}
               <FAQs />
             </section>
             <Footer />
