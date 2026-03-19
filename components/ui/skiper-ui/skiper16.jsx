@@ -17,14 +17,21 @@ const projects = [
     description:
       "We design and develop fast, scalable, and conversion-focused websites and web applications. From high-impact landing pages to full-stack platforms, we focus on clean architecture, smooth performance, and user experiences that turn visitors into loyal customers.",
     tags: ["MVP Development", "Landing Page", "Full Stack", "CMS / Admin Dashboards"],
-    src: "/services/img1.jpg",
+    src: "/services/service5.jpg",
+  },
+  {
+    title: "Video Editing",
+    description:
+      "We produce engaging video edits that tell stories, build emotion, and keep viewers watching. From short-form content to promotional videos, we focus on pacing, visuals, and sound design to create videos that feel dynamic, polished, and impactful.",
+    tags: ["Short-Form Videos", "Long-Form Videos", "Promo Videos", "Motion Graphics"],
+    src: "/services/service8.jpg",
   },
   {
     title: "Brand Design",
     description:
       "We craft strong and memorable brand identities that clearly communicate who you are and what you stand for. From logos to complete visual systems, we build brands that feel consistent, recognizable, and ready to scale across digital and physical touchpoints.",
     tags: ["Brand Identity", "Logo Design", "Visual Language", "Brand Guidelines"],
-    src: "/services/img2.jpg",
+    src: "/services/service3.jpg",
   },
   {
     title: "Graphic Design",
@@ -37,15 +44,9 @@ const projects = [
       "Poster Design",
       "YouTube Thumbnails",
     ],
-    src: "/services/img3.jpg",
+    src: "/services/service1.jpg",
   },
-  {
-    title: "Video Editing",
-    description:
-      "We produce engaging video edits that tell stories, build emotion, and keep viewers watching. From short-form content to promotional videos, we focus on pacing, visuals, and sound design to create videos that feel dynamic, polished, and impactful.",
-    tags: ["Short-Form Videos", "Long-Form Videos", "Promo Videos", "Motion Graphics"],
-    src: "/services/img2.jpg",
-  },
+  
 ];
 
 
@@ -283,7 +284,7 @@ const StickyCard_001 = ({
         ) : (
           <>
             {/* Background Video (Left Side) */}
-            <div className="hidden xl:block absolute top-0 left-0 w-full xl:w-1/2 h-1/2 xl:h-full z-0 overflow-hidden">
+            {/* <div className="hidden xl:block absolute top-0 left-0 w-full xl:w-1/2 h-1/2 xl:h-full z-0 overflow-hidden">
               <motion.video
                 style={{ scale: imageScale }}
                 src="/services/mesh.mp4"
@@ -294,7 +295,7 @@ const StickyCard_001 = ({
                 className="w-full h-full object-cover opacity-50 block"
               />
               <div className="absolute inset-0 bg-black/10" />
-            </div>
+            </div> */}
 
             {/* ================= LEFT: CONTENT (Redesigned) ================= */}
             <div className="relative z-10 w-full xl:w-1/2 h-full flex flex-col">
